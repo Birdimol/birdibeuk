@@ -1,0 +1,29 @@
+table.default, table.formulaire
+{
+    border-collapse:collapse;
+    border:1px #900000 solid;
+    background-color:rgba(231, 228, 218, 1);
+    margin:auto;
+}
+
+table.default tr td
+{
+    text-align:center;
+    padding:5px;
+    border-bottom:1px #900000 solid;
+}
+
+table.default tr th
+{
+    text-align:center;
+    padding:10px;
+    border-bottom:3px #900000 solid;
+}
+
+table.formulaire tr td
+{
+    text-align:left;
+    padding:5px;
+    padding-left:15px;
+    
+}

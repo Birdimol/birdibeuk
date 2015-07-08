@@ -1,0 +1,140 @@
+body
+{
+	background-color:#E7E7D2;
+	color:#900000;
+	padding:0;
+	margin:0;
+	font-family:Impact;
+
+	/*background: url('../image/bg.png') no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;*/
+}
+
+/*---content---*/
+
+div.content
+{
+	margin:auto;
+	margin-top:5px;
+	width:95%;
+	height:100%;	
+}
+
+div.principal_avec_pub
+{	
+	border:3px black double;	
+	/*background-image:url('../image/bg2.png');*/
+	background-color:#e5d594;
+	min-height:414px;
+    margin-right:220px;
+	padding:20px;
+}
+
+div.principal_sans_pub
+{	
+	border:3px black double;	
+	/*background-image:url('../image/bg2.png');*/
+	background-color:#e5d594;
+	min-height:414px;
+	padding:20px;
+}
+
+
+p
+{
+    text-align:justify;
+}
+
+p.petit
+{
+    text-align:justify;
+    font-size:10px;
+    
+}
+
+div.cadreRouge
+{
+	color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:26px;
+}
+
+div.formulaireParchemin
+{
+    background-image: url('../image/bg4.png');
+    text-align:center;
+    border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+div.cadreRougebg
+{
+	color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:20px;
+    background-image: url('../image/bg3.png');
+    width:150px;
+    float:left;
+    margin:5px;
+    padding-bottom: 5px;
+}
+
+span.QMright
+{
+    color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top:-3px;
+    cursor:help;
+    font-size:20px;
+    float:right;
+}
+
+/*---header---*/
+.header
+{
+	border:3px black double;
+	background-color:#e5d594;
+	/*background-image:url('../image/bg2.png');*/
+	margin-top:20px;
+	padding:20px;
+	text-align:center;
+	font-size:24px;
+}
+
+.petit
+{
+	font-size:14px;
+}
+
+/*---footer---*/
+.footer
+{
+	border:3px black double;
+	background-color:#e5d594;
+	/*background-image:url('../image/bg2.png');*/
+	margin-top:20px;
+	margin-bottom:20px;
+	padding:20px;
+	text-align:center;
+}

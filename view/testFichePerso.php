@@ -1,0 +1,1 @@
+<img src='ficheDePerso.php' />

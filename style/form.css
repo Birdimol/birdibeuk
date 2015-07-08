@@ -1,0 +1,68 @@
+/*---formulaires---*/
+
+div.bouton
+{
+	color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:26px;
+}
+
+div.bouton_centre
+{
+	color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:26px;
+    width:200px;
+    text-align:center;
+    margin:auto;
+}
+
+input.bouton
+{
+    color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:20px;
+    background-image: url('../image/bg3.png');
+    margin:5px;
+}
+
+select
+{
+    color:#900000;
+	font-family:Impact;
+	border: 3px #900000 solid;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding:10px;
+    font-size:26px;
+    background-image: url('../image/bg3.png');
+}
+
+select.normal
+{
+    color:#900000;
+	font-family:Impact;
+	border: 1px #900000 solid;
+	-webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    padding:2px;
+    font-size:16px;
+    background-image: none;
+}

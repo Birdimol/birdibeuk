@@ -1,0 +1,31 @@
+/*---menu---*/
+
+div.menu
+{
+	padding-top:10px;
+	padding-bottom:10px;	
+}
+
+table.tableMenu
+{
+	width:100%;
+	border:3px black double;
+	background-color:#e5d594;
+	/*background-image:url('../image/bg2.png');*/
+}
+
+td.tdMenuVide
+{
+	text-align:center;
+}
+
+td.tdMenu
+{
+	text-align:center;	
+}
+
+td.tdMenu:hover
+{
+	cursor:pointer;
+	text-decoration:underline;	
+}

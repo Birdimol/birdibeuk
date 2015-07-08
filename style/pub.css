@@ -1,0 +1,23 @@
+/*---pub---*/
+
+div.cadrePub
+{
+	float:right;
+}
+
+div.pub
+{	
+	width:200px;
+	height:200px;
+	border:3px black double;
+	margin-top:10px;
+}
+
+div.pub_titre
+{
+	/*background-image:url('../image/bg2.png');*/
+	background-color:#e5d594;
+	width:200px;
+	border:3px black double;
+	text-align:center;
+}
