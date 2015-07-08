@@ -420,8 +420,14 @@ class Aventurier
         //si cet aventurier n'appartient à personne, alors la personne qui le modifie en premier en prend possession
         if($this->idjoueur == 0)
         {
-            $user = unserialize($_SESSION["birdibeuk_user"]);
-            $this->idjoueur = $user->id;
+            if(isset($_SESSION["birdibeuk_user"]))
+            {
+                if($_SESSION["birdibeuk_user"] != false)
+                {
+                    $user = unserialize($_SESSION["birdibeuk_user"]);
+                    $this->idjoueur = $user->id;
+                }
+            }
         }
         
         $db = getConnexionDB();
