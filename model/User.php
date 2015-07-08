@@ -113,7 +113,7 @@ class User
             $tableau[] = new Aventurier($rs['ID'], $rs['NOM'], $rs['SEXE'], $rs['ID_ORIGINE'], $rs['ID_METIER'], $rs['EV'], $rs['EA'], $rs['COU'], $rs['INT'], $rs['CHA'], 
 			$rs['AD'], $rs['FO'], $rs['AT'], $rs['PRD'], $rs['XP'], $rs['DESTIN'], $rs['OR'], $rs['ARGENT'], $rs['CUIVRE'], $rs['NIVEAU'], $rs['idjoueur'],
 			$rs['type'], $rs['MAGIEPHYS'] , $rs['MAGIEPSY'], $rs['RESISTMAG'], 
-			$rs['ID_TYPEMAGIE'], $rs['ID_DIEU'], $rs['COMPETENCESCHOISIES'], $rs['PR_MAX'], $rs['codeacces'], $rs['PR']);
+			$rs['ID_TYPEMAGIE'], $rs['ID_DIEU'], array(), $rs['PR_MAX'], $rs['codeacces'], $rs['PR']);
         }
         return $tableau;
     }
