@@ -55,6 +55,11 @@ p.petit
     
 }
 
+.hover_souligne:hover
+{
+    text-decoration:underline;
+}
+
 div.cadreRouge
 {
 	color:#900000;

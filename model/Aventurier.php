@@ -975,4 +975,94 @@ class Aventurier
     </table><br>
         <?php
     }
+    
+    public function ficheMJ()
+    {
+        $aventurier = $this;
+       ?>
+        <style>
+        td
+        {
+            padding:5px;
+        }
+    </style>
+    <table style='float:left;margin:10px;border-collapse:collapse;background-image:url("image/bg3.png");border: 1px #900000 solid;'>
+    <tr><td style='border-bottom:1px #900000 solid;text-align:center;'><?php echo $aventurier->NOM; ?></td></tr>
+        <tr>
+            <td style='border-bottom:1px #900000 solid;text-align:center;'>
+                <?php echo $aventurier->ORIGINE->NOM." "; 
+                if( $aventurier->METIER->NOM == "Aucun")
+                {
+                    echo "sans profession";
+                }
+                else
+                {
+                    echo $aventurier->METIER->NOM;
+                }
+                ?>
+            </td>
+        </tr>
+    <tr><td style='vertical-align:top;'>
+        <table style='background-image:url("image/bg3.png");margin:auto;border-collapse:collapse;'>        
+        <tr><td style='width:20%;'>COU</td><td style='width:20%;'>INT</td><td style='width:20%;'>CHA</td><td style='width:20%;'>AD</td><td style='width:20%;'>FO</td></tr>
+        <tr style='border-bottom:1px #900000 solid;'><td><?php echo $aventurier->COU; ?></td><td><?php echo $aventurier->INT; ?></td><td><?php echo $aventurier->CHA; ?></td><td><?php echo $aventurier->AD; ?></td><td><?php echo $aventurier->FO; ?></td></tr>
+        <tr style='border-bottom:1px #900000 solid;'><td> XP :</td><td colspan='4'> <?php echo $aventurier->XP; ?> </td></tr>
+        <tr style='border-bottom:1px #900000 solid;'><td> EV :</td><td colspan='4'> <?php echo $aventurier->EV; ?> </td></tr>
+        <?php 
+            if($aventurier->EA != 0)
+            {
+                ?>
+                    <tr style='border-bottom:1px #900000 solid;'><td>EA :</td><td colspan='4'> <?php echo $aventurier->EA; ?> </td></tr>
+                <?php
+            }
+        ?>
+        <tr><td >AT</td><td>PRD</td><td style='font-size:80%;'>PRM</td><td>PR</td><td>RM</td></tr>
+        <tr style='border-bottom:1px #900000 solid;'><td><?php echo $aventurier->AT; ?></td><td> <?php echo $aventurier->PRD; ?> </td><td> <?php if($aventurier->PR_MAX == 0){echo " / ";}else{echo $aventurier->PR_MAX;} ?> </td><td> <?php echo $aventurier->PR; ?> </td><td><?php echo $aventurier->RESISTMAG; ?></td></tr>
+        
+        <?php 
+            if($aventurier->EA != 0)
+            {
+                ?>
+                    <tr><td colspan='2'>MAGPSY</td><td colspan='3'>MAGPHYS</td></tr>
+                    <tr style='border-bottom:1px #900000 solid;'><td colspan='2'><?php echo $aventurier->MAGIEPSY; ?></td><td colspan='3'><?php echo $aventurier->MAGIEPHYS; ?></td></tr>
+                <?php
+            }
+        
+            foreach($aventurier->armes as $arme)
+            {
+                echo "<tr style='font-size:70%;'><td colspan='3'>".$arme->NOM;
+                if(!empty($arme->modif()))
+                {
+                    echo "(".$arme->modif().")";
+                }
+                echo "</td><td>".$arme->PI."</td><td>".$arme->RUP."</td></tr>";
+            }           
+            
+        ?>
+        
+        <tr><td> OR :</td><td colspan='4'> <?php echo $aventurier->OR; ?> </td></tr>
+        <tr><td> PA :</td><td colspan='4'> <?php echo $aventurier->ARGENT; ?> </td></tr>
+        <tr><td> PC :</td><td colspan='4'> <?php echo $aventurier->CUIVRE; ?> </td></tr>
+        <tr>
+            <td colspan='5' style='font-size:70%;'>
+            <?php
+                $competences = Competence::Lister();
+                foreach($competences as $competence)
+                {
+                    if($aventurier->possedeCompetence($competence))
+                    {
+                        echo "".$competence->NOM."<br />";
+                    }
+                }           
+            ?>
+            </td>
+        </tr>
+       
+        </table>      
+       
+    </td>
+    </tr>
+    </table>
+        <?php
+    }
 }

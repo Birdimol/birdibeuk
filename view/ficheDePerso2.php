@@ -121,7 +121,15 @@ foreach($aventurier->equipements as $key=>$equipement)
         {
             $string_temp .= ", ";
         }
-        $string_temp .= $equipement->NOM; 
+        
+        if($equipement->nombre == 1)
+        {
+            $string_temp .= $equipement->NOM; 
+        }
+        else
+        {
+            $string_temp .= "(".$equipement->nombre.")".$equipement->NOM; 
+        } 
         
         $dimensions = imagettfbbox($fontSizeEquipement, 0, $font, $string_temp);
         $lineWidth = ($dimensions[2] - $dimensions[0]);
@@ -162,8 +170,15 @@ foreach($aventurier->equipements as $key=>$equipement)
             //on saute une ligne
             $numeroLigne++;
             
-            //on recommence une ligne avec le mot que l'on a pas placé      
-            $string = $equipement->NOM; 
+            //on recommence une ligne avec le mot que l'on a pas placé   
+            if($equipement->nombre == 1)
+            {
+                $string = $equipement->NOM; 
+            }
+            else
+            {
+                $string = "(".$equipement->nombre.")".$equipement->NOM; 
+            }             
             $deja_ecrit[] = $key;
         }
         else

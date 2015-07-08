@@ -12,6 +12,7 @@
             <?php 
                 if(isset($_SESSION["birdibeuk_user"]))
                 {
+                    $user = unserialize($_SESSION["birdibeuk_user"]);
                     if(isset($_GET["ctrl"]))
                     {
                         if($_GET["ctrl"] == "deconnexion")
@@ -31,6 +32,14 @@
                             <td class='tdMenuVide'>|</td>
                             <td class='tdMenu'><a href='index.php?ctrl=gestionCompagnies'>Compagnies</a></td>
                         <?php
+                        
+                        if($user->mj)
+                        {
+                            ?>
+                            <td class='tdMenuVide'>|</td>
+                            <td class='tdMenu'><a href='index.php?ctrl=outilsMJ'>Outils MJ</a></td>
+                            <?php 
+                        }
                     }
                     else
                     {

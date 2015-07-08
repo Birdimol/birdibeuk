@@ -306,17 +306,20 @@
                     }
                     else if(strpos(substr($key,0,4),"Equi") !== false)
                     {
-                        $id = substr($key,4);
-                        $nbr = $_POST["HidNbrEqui".$value];
-                        $precieux = 0;
-                        if(isset($_POST["EquiPrecieux".$value]))
+                        if($value != "on")
                         {
-                            $precieux = 1;
-                        }
-                        for($a=0;$a<$nbr;$a++)
-                        {
-                            $aventurier->ajouterEquipement($value, $precieux);      
-                        }                               
+                            $id = substr($key,4);
+                            $nbr = $_POST["HidNbrEqui".$value];
+                            $precieux = 0;
+                            if(isset($_POST["EquiPrecieux".$value]))
+                            {
+                                $precieux = 1;
+                            }
+                            for($a=0;$a<$nbr;$a++)
+                            {
+                                $aventurier->ajouterEquipement($value, $precieux);      
+                            }
+                        }                                                       
                     }
                     else if(strpos(substr($key,0,10),"competence") !== false)
                     {

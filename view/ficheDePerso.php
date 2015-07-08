@@ -153,8 +153,15 @@ foreach($aventurier->equipements as $key=>$equipement)
             //on saute une ligne
             $numeroLigne++;
             
-            //on recommence une ligne avec les mots        
-            $string = $equipement->NOM; 
+            //on recommence une ligne avec les mots
+            if($equipement->nombre == 1)
+            {
+                $string = $equipement->NOM; 
+            }
+            else
+            {
+                $string = "(".$equipement->nombre.")".$equipement->NOM; 
+            }             
             $deja_ecrit[] = $key;
         }
         else
