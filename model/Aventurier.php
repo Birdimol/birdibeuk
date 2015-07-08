@@ -416,6 +416,14 @@ class Aventurier
     public function modifier()
     {
         $this->verifieValeurs();
+        
+        //si cet aventurier n'appartient à personne, alors la personne qui le modifie en premier en prend possession
+        if($this->idjoueur == 0)
+        {
+            $user = unserialize($_SESSION["birdibeuk_user"]);
+            $this->idjoueur = $user->id;
+        }
+        
         $db = getConnexionDB();
         $requete = "UPDATE aventurier SET NOM = '".$this->NOM."',idjoueur = ".$this->idjoueur.", SEXE = '".$this->SEXE."', ID_ORIGINE = ".$this->ID_ORIGINE.", 
         ID_METIER = ".$this->ID_METIER.", EV = ".$this->EV.", EA = ".$this->EA.", COU = ".$this->COU.", `INT` = ".$this->INT.", CHA = ".$this->CHA.", 
@@ -424,6 +432,8 @@ class Aventurier
         MAGIEPHYS = ".$this->MAGIEPHYS.", MAGIEPSY = ".$this->MAGIEPSY.", RESISTMAG = ".$this->RESISTMAG.", ID_TYPEMAGIE = ".
         $this->ID_TYPEMAGIE.", ID_DIEU = ".$this->ID_DIEU.", PR_MAX = ".$this->PR_MAX.",PR = ".$this->PR.", codeacces = '".$this->codeacces."'
         WHERE ID = ".$this->ID;
+        
+        
         
         $stmt = $db->prepare($requete);
         $stmt->execute();
@@ -485,6 +495,8 @@ class Aventurier
             $stmt = $db->prepare($requete);
             $stmt->execute();
         }
+        
+        
     }
 
     public function supprimer()
