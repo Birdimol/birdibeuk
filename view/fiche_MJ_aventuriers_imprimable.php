@@ -1,14 +1,17 @@
-<div class='principal_avec_pub'>    
     <?php 
-        $ids = array();
+        include(__DIR__."/../config/param.php");
+        include(__DIR__."/../model/autoloader.php");
+        include(__DIR__."/../model/GeneralFunctions.php");
+        
+        $ids = explode("-",$_GET["ids"]);
         $listeAventuriers = array();
-        for($a=1;$a<$_POST["maxID"];$a++)
+        foreach($ids as $id)
         {
-            if(isset($_POST["aventurier".$a]))
+            if(!empty($id))
             {
-                $aventurier = new Aventurier($a);
+                $aventurier = new Aventurier($id);
                 $listeAventuriers[] = $aventurier;
-                $ids[] = $a;
+                $ids[] = $id;
             }
         }
         $tds = array();
@@ -23,15 +26,10 @@
             }
         }
     ?>
-    <div style='text-align:center;'>
-        <a target='blank_' href='view/fiche_MJ_aventuriers_imprimable.php?ids=<?php foreach($ids as $id){echo $id."-";}?>'>
-            <input type='button' value='version imprimable' style='width:200px;'/>
-        </a>
-    </div>
     <table>
         <tr>
             <td>
-                <div style='float-left;border:1px #900000 solid;padding:10px;width:200px;background-image:url("image/bg3.png");'>
+                <div style='float-left;border:1px #900000 solid;padding:10px;width:250px;background-image:url("image/bg3.png");'>
                     <div style='text-align:center;'><u>Initiative au combat</u></div>
                     <?php 
                         $chercher_des_noises = new Competence(14);
@@ -97,7 +95,7 @@
                 </div>
             </td>
             <td>
-                <div style='text-align:center;background-image:url("image/bg3.png");border:1px #900000 solid;padding:5px;'><u>Face au danger</u>
+                <div style='text-align:center;background-image:url("image/bg3.png");border:1px #900000 solid;'><u>Face au danger</u>
                     <table style='border-collapse:collapse;'>
                         <tr><td></td><td style='border:1px #900000 solid;' >Nyctalopie</td><td style='border:1px #900000 solid;' >flaire le danger</td><td style='border:1px #900000 solid;' >Attire les mobs</td><td style='border:1px #900000 solid;' >Tombe piège</td></tr>
                         <?php 
@@ -148,8 +146,7 @@
                         ?>
                     </table>      
                 </div>
-            </td>
-            <td>
+            </td><td>
                  <div style='float-left;border:1px #900000 solid;padding:10px;width:200px;background-image:url("image/bg3.png");'>
                     <div style='text-align:center;'><u>Initiative au butin</u></div>
                     <?php 
@@ -178,43 +175,41 @@
         </tr>
     </table>
     
-    <div>
-        <table>
-            <tr>
-                <td style='vertical-align:top;'>
-                <?php 
-                    foreach($tds[0] as $aventurier)
-                    {
-                        $aventurier->ficheMJ();
-                    }
-                ?>
-                </td>
-                <td style='vertical-align:top;'>
-                <?php 
-                    foreach($tds[1] as $aventurier)
-                    {
-                        $aventurier->ficheMJ();
-                    }
-                ?>
-                </td >
-                <td style='vertical-align:top;'>
-                <?php 
-                    foreach($tds[2] as $aventurier)
-                    {
-                        $aventurier->ficheMJ();
-                    }
-                ?>
-                </td>
-                <td style='vertical-align:top;'>
-                <?php 
-                    foreach($tds[3] as $aventurier)
-                    {
-                        $aventurier->ficheMJ();
-                    }
-                ?>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div style='clear:both;'></div>
-</div>
+    
+    <table>
+        <tr>
+            <td style='vertical-align:top;'>
+            <?php 
+                foreach($tds[0] as $aventurier)
+                {
+                    $aventurier->ficheMJ();
+                }
+            ?>
+            </td>
+            <td style='vertical-align:top;'>
+            <?php 
+                foreach($tds[1] as $aventurier)
+                {
+                    $aventurier->ficheMJ();
+                }
+            ?>
+            </td >
+            <td style='vertical-align:top;'>
+            <?php 
+                foreach($tds[2] as $aventurier)
+                {
+                    $aventurier->ficheMJ();
+                }
+            ?>
+            </td>
+            <td style='vertical-align:top;'>
+            <?php 
+                foreach($tds[3] as $aventurier)
+                {
+                    $aventurier->ficheMJ();
+                }
+            ?>
+            </td>
+        </tr>
+    </table>
+

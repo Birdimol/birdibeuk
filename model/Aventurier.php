@@ -976,6 +976,21 @@ class Aventurier
         <?php
     }
     
+    public function estCompetenceChoisie($competence)
+    {
+        if(in_array($competence,$this->ORIGINE->COMPETENCESLIEES))
+        {
+            return false;
+        }
+        
+        if(in_array($competence,$this->METIER->COMPETENCESLIEES))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    
     public function ficheMJ()
     {
         $aventurier = $this;
@@ -986,8 +1001,9 @@ class Aventurier
             padding:5px;
         }
     </style>
-    <table style='float:left;margin:10px;border-collapse:collapse;background-image:url("image/bg3.png");border: 1px #900000 solid;'>
-    <tr><td style='border-bottom:1px #900000 solid;text-align:center;'><?php echo $aventurier->NOM; ?></td></tr>
+    <table style='margin:10px;border-collapse:collapse;background-image:url("image/bg3.png");border: 2px #900000 solid;'>
+    <tr><td style='border-bottom:1px #900000 solid;text-align:center;'><?php echo $aventurier->NOM." <span style='font-size:70%;'>(".$aventurier->SEXE.")</span>"; ?></td></tr>
+    <tr><td style='border-bottom:1px #900000 solid;text-align:center;'>Niveau <?php echo $aventurier->NIVEAU; ?></td></tr>
         <tr>
             <td style='border-bottom:1px #900000 solid;text-align:center;'>
                 <?php echo $aventurier->ORIGINE->NOM." "; 
@@ -1005,7 +1021,46 @@ class Aventurier
     <tr><td style='vertical-align:top;'>
         <table style='background-image:url("image/bg3.png");margin:auto;border-collapse:collapse;'>        
         <tr><td style='width:20%;'>COU</td><td style='width:20%;'>INT</td><td style='width:20%;'>CHA</td><td style='width:20%;'>AD</td><td style='width:20%;'>FO</td></tr>
-        <tr style='border-bottom:1px #900000 solid;'><td><?php echo $aventurier->COU; ?></td><td><?php echo $aventurier->INT; ?></td><td><?php echo $aventurier->CHA; ?></td><td><?php echo $aventurier->AD; ?></td><td><?php echo $aventurier->FO; ?></td></tr>
+        <tr>
+            <td><?php echo $aventurier->COU; ?></td>
+            <td><?php if($aventurier->INT > 12){echo "<u>";} echo $aventurier->INT; if($aventurier->INT > 12){echo "</u>";} ?></td>
+            <td><?php echo $aventurier->CHA; ?></td>
+            <td><?php if($aventurier->AD > 12){echo "<u>";} echo $aventurier->AD; if($aventurier->AD > 12){echo "</u>";}?></td>
+            <td><?php if($aventurier->FO > 12){echo "<u>";} echo $aventurier->FO; if($aventurier->FO > 12){echo "</u>";}?></td>
+        </tr>
+        <?php 
+            $modificateur_COU = 0;
+            $modificateur_INT = 0;
+            $modificateur_CHA = 0;
+            $modificateur_AD = 0;
+            $modificateur_FO = 0;
+            
+            foreach($aventurier->armes as $arme)
+            {
+                $modificateur_COU += $arme->COU;
+                $modificateur_INT += $arme->INT;
+                $modificateur_CHA += $arme->CHA;
+                $modificateur_AD  += $arme->AD;
+                $modificateur_FO  += $arme->FOR;
+            }
+            
+            foreach($aventurier->protections as $protection)
+            {
+                $modificateur_COU += $protection->COU;
+                $modificateur_INT += $protection->INT;
+                $modificateur_CHA += $protection->CHA;
+                $modificateur_AD  += $protection->AD;
+                $modificateur_FO  += $protection->FOR;
+            }
+            ?>
+        
+        <tr style='border-bottom:1px #900000 solid;'>
+            <td <?php if($modificateur_COU != 0){echo "style='color:green;'";}?> ><?php if($modificateur_COU != 0){echo $aventurier->COU +$modificateur_COU;}else{echo "&nbsp;";} ?></td>
+    <td <?php if($modificateur_INT != 0){echo "style='color:green;'";}?>><?php if($modificateur_INT != 0){echo $aventurier->INT +$modificateur_INT;}else{echo "&nbsp;";} ?></td>
+<td <?php if($modificateur_CHA != 0){echo "style='color:green;'";}?>><?php if($modificateur_CHA != 0){echo $aventurier->CHA +$modificateur_CHA;}else{echo "&nbsp;";} ?></td>
+            <td <?php if($modificateur_AD != 0){echo "style='color:green;'";}?>><?php if($modificateur_AD != 0){echo $aventurier->AD +$modificateur_AD;}else{echo "&nbsp;";} ?></td>
+            <td <?php if($modificateur_FO != 0){echo "style='color:green;'";}?>><?php if($modificateur_FO != 0){echo $aventurier->FO +$modificateur_FO;}else{echo "&nbsp;";} ?></td>
+        </tr>
         <tr style='border-bottom:1px #900000 solid;'><td> XP :</td><td colspan='4'> <?php echo $aventurier->XP; ?> </td></tr>
         <tr style='border-bottom:1px #900000 solid;'><td> EV :</td><td colspan='4'> <?php echo $aventurier->EV; ?> </td></tr>
         <?php 
@@ -1017,7 +1072,11 @@ class Aventurier
             }
         ?>
         <tr><td >AT</td><td>PRD</td><td style='font-size:80%;'>PRM</td><td>PR</td><td>RM</td></tr>
-        <tr style='border-bottom:1px #900000 solid;'><td><?php echo $aventurier->AT; ?></td><td> <?php echo $aventurier->PRD; ?> </td><td> <?php if($aventurier->PR_MAX == 0){echo " / ";}else{echo $aventurier->PR_MAX;} ?> </td><td> <?php echo $aventurier->PR; ?> </td><td><?php echo $aventurier->RESISTMAG; ?></td></tr>
+        <tr style='border-bottom:1px #900000 solid;'>
+            <td><?php echo $aventurier->AT; ?></td><td> <?php echo $aventurier->PRD; ?> </td>
+            <td> <?php if($aventurier->PR_MAX == 0){echo " / ";}else{echo $aventurier->PR_MAX;} ?> </td>
+            <td> <?php echo $aventurier->PR; if($aventurier->possedeCompetence(new Competence(49))){echo "<span style='color:green;'>+1</span>";} ?></td><td><?php echo $aventurier->RESISTMAG; ?></td>
+        </tr>
         
         <?php 
             if($aventurier->EA != 0)
@@ -1028,21 +1087,90 @@ class Aventurier
                 <?php
             }
         
+            echo "<tr style='font-size:70%;text-align:center;'><td colspan='5'><u>armes</u></td></tr>";
+            echo "<tr style='font-size:80%;'><td>AT</td><td>PRD</td><td>MODIF</td><td>PI</td><td>RUP</td></tr>";
+            
+            $bonus_pi = "";
+            if($this->FO > 12)
+            {
+                $bonus_pi = "+".($this->FO - 12);
+            }
+            else if($this->FO < 9)
+            {
+                $bonus_pi = "-1";
+            }
             foreach($aventurier->armes as $arme)
             {
-                echo "<tr style='font-size:70%;'><td colspan='3'>".$arme->NOM;
-                if(!empty($arme->modif()))
-                {
-                    echo "(".$arme->modif().")";
-                }
-                echo "</td><td>".$arme->PI."</td><td>".$arme->RUP."</td></tr>";
-            }           
+                echo "<tr style='font-size:80%;'><td colspan='5'><u>".$arme->NOM."</u></td></tr>";
+                $at = $aventurier->AT + $arme->AT;
+                $prd = $aventurier->PRD + $arme->PRD;
+                echo "<tr style='font-size:80%;border-bottom:1px #900000 dotted;'><td>".$at."</td><td>".$prd."</td><td>".$arme->modifCharac()."</td><td>".$arme->PI."<span style='color:green;'>".$bonus_pi."</span></td><td>".$arme->RUP."</td></tr>";
+            }
+            echo "<tr style='font-size:70%;text-align:center;border-top:1px #900000 solid;'><td colspan='5'><u>protection</u></td></tr>";
+            echo "<tr style='font-size:80%;'><td colspan='3'>MODIF</td><td>PR</td><td>RUP</td></tr>";
+            foreach($aventurier->protections as $protection)
+            {
+                echo "<tr style='font-size:80%;'><td colspan='5'><u>".$protection->NOM."</u></td></tr>";
+                echo "<tr style='font-size:80%;border-bottom:1px #900000 dotted;'><td colspan='3'>".$protection->modif()."</td><td>".$protection->PR."</td><td>".$protection->RUP."</td></tr>";
+            }            
+            echo "<tr style='font-size:70%;text-align:center;padding:0px;border-top:1px #900000 solid;'><td colspan='5'><u>equipement</u></td></tr>";
             
+            $compte = 0;            
+            foreach($aventurier->equipements as $equipement)
+            {
+                if($equipement->type == "munition")
+                {
+                    echo "<tr style='font-size:80%;'><td colspan='5' style='padding:0px;'>".$equipement->libelle."</td></tr>";
+                    $compte++;
+                }                
+            }
+            $compte1 = 0;            
+            foreach($aventurier->equipements as $equipement)
+            {
+                if($equipement->type == "nourriture")
+                {
+                    echo "<tr style='font-size:80%;";
+                    if($compte >0 && $compte1 ==0)
+                    {
+                        echo "border-top:1px #900000 dotted;";
+                    }
+                    echo "'><td colspan='5' style='padding:0px;'>".$equipement->libelle."</td></tr>";
+                    $compte1++;
+                }                
+            }
+            $compte11 = 0;            
+            foreach($aventurier->equipements as $equipement)
+            {
+                if($equipement->type == "vetement")
+                {
+                    echo "<tr style='font-size:80%;";
+                    if(($compte1 >0 || $compte >0) && $compte11 ==0)
+                    {
+                        echo "border-top:1px #900000 dotted;";
+                    }
+                    echo "'><td colspan='5' style='padding:0px;'>".$equipement->libelle."</td></tr>";
+                    $compte11++;
+                }                
+            }
+            $compte2=0;
+            foreach($aventurier->equipements as $equipement)
+            {
+                if($equipement->type != "nourriture" && $equipement->type != "munition" && $equipement->type != "vetement")
+                { 
+                    echo "<tr style='font-size:80%;";
+                    if(($compte1 >0 || $compte11 >0 || $compte >0) && $compte2==0)
+                    {
+                        echo "border-top:1px #900000 dotted;";
+                    }
+                    echo "'><td colspan='5' style='padding:0px;'>".$equipement->libelle."</td></tr>";
+                    $compte2++;
+                }
+            } 
         ?>
         
-        <tr><td> OR :</td><td colspan='4'> <?php echo $aventurier->OR; ?> </td></tr>
-        <tr><td> PA :</td><td colspan='4'> <?php echo $aventurier->ARGENT; ?> </td></tr>
-        <tr><td> PC :</td><td colspan='4'> <?php echo $aventurier->CUIVRE; ?> </td></tr>
+        <tr style='border-top:1px #900000 solid;border-bottom:1px #900000 dotted;'><td style='padding:0px;'> OR :</td><td style='padding:0px;' colspan='4'> <?php echo $aventurier->OR; ?> </td></tr>
+        <tr style='border-bottom:1px #900000 dotted;'><td style='padding:0px;'> PA :</td><td colspan='4' style='padding:0px;'> <?php echo $aventurier->ARGENT; ?> </td></tr>
+        <tr style='border-bottom:1px #900000 solid;'><td style='padding:0px;'> PC :</td><td style='padding:0px;' colspan='4'> <?php echo $aventurier->CUIVRE; ?> </td></tr>
         <tr>
             <td colspan='5' style='font-size:70%;'>
             <?php
@@ -1051,7 +1179,14 @@ class Aventurier
                 {
                     if($aventurier->possedeCompetence($competence))
                     {
-                        echo "".$competence->NOM."<br />";
+                        if($aventurier->estCompetenceChoisie($competence))
+                        {
+                            echo "<b>".$competence->NOM."</b><br />";
+                        }
+                        else
+                        {
+                            echo "".$competence->NOM."<br />";
+                        }
                     }
                 }           
             ?>

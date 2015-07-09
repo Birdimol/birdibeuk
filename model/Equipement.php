@@ -58,7 +58,21 @@ class Equipement
     //get
     public function __get($var)
     {
-        return $this->$var;	
+        if($var == "libelle")
+        {
+            if($this->nombre == 1)
+            {
+                return $this->NOM; 
+            }
+            else
+            {
+                return "(".$this->nombre.")".$this->NOM; 
+            }
+        }
+        else
+        {
+            return $this->$var;
+        }	
     }
     
     //set
@@ -281,8 +295,8 @@ class Equipement
         $this->munition = $ligne['munition'];    
         $this->debase = $ligne['debase'];    
         $this->type = $ligne['type'];
-        $this->type = $ligne['AT'];
-        $this->type = $ligne['PRD'];
+        $this->AT = $ligne['AT'];
+        $this->PRD = $ligne['PRD'];
     }
 
     public function debug()

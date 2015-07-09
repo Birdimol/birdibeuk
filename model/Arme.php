@@ -159,6 +159,79 @@ class Arme
         
         return $string;
     }
+    
+    public function modifCharac()
+    {
+        $string2 = "";
+        
+        if(!empty($this->COU))
+        {
+            if(!empty($string2))
+            {
+                $string2.= "/";
+            }
+            $string2.="COU";
+            if($this->COU > 0)
+            {
+                $string2.="+";
+            }
+            $string2.=$this->COU;
+        }
+        if(!empty($this->INT))
+        {
+            if(!empty($string2))
+            {
+                $string2.= "/";
+            }
+            $string2.="INT";
+            if($this->INT > 0)
+            {
+                $string2.="+";
+            }
+            $string2.=$this->INT;
+        }
+        if(!empty($this->CHA))
+        {
+            if(!empty($string2))
+            {
+                $string2.= "/";
+            }
+            $string2.="CHA";
+            if($this->CHA > 0)
+            {
+                $string2.="+";
+            }
+            $string2.=$this->CHA;
+        }
+        if(!empty($this->AD))
+        {
+            if(!empty($string2))
+            {
+                $string2.= "/";
+            }
+            $string2.="AD";
+            if($this->AD > 0)
+            {
+                $string2.="+";
+            }
+            $string2.=$this->AD;
+        }
+        if(!empty($this->FO))
+        {
+            if(!empty($string2))
+            {
+                $string2.= "/";
+            }
+            $string2.="FO";
+            if($this->FO > 0)
+            {
+                $string2.="+";
+            }
+            $string2.=$this->FO;
+        }
+        
+        return $string2;
+    }
 
     //get
     public function __get($var)

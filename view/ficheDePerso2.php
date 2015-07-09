@@ -22,6 +22,9 @@ else
 }
 
 $noir = imagecolorallocate($image, 0, 0, 0);
+$vert = imagecolorallocate($image, 0, 144, 0);
+$rouge = imagecolorallocate($image, 144, 0, 0);
+
 $font = __DIR__."/../fonts/VINERITC.TTF"; 
 $fontSize = 12;
 $fontSizeEquipement = 10;
@@ -42,6 +45,99 @@ imagettftext($image, $fontSize, 0, 392, 364, $noir, $font, $aventurier->INT);
 imagettftext($image, $fontSize, 0, 392, 395, $noir, $font, $aventurier->CHA);
 imagettftext($image, $fontSize, 0, 392, 425, $noir, $font, $aventurier->AD);
 imagettftext($image, $fontSize, 0, 392, 456, $noir, $font, $aventurier->FO);
+
+$modificateur_COU = 0;
+$modificateur_INT = 0;
+$modificateur_CHA = 0;
+$modificateur_AD = 0;
+$modificateur_FO = 0;
+
+foreach($aventurier->armes as $arme)
+{
+    $modificateur_COU += $arme->COU;
+    $modificateur_INT += $arme->INT;
+    $modificateur_CHA += $arme->CHA;
+    $modificateur_AD  += $arme->AD;
+    $modificateur_FO  += $arme->FOR;
+}
+
+foreach($aventurier->protections as $protection)
+{
+    $modificateur_COU += $protection->COU;
+    $modificateur_INT += $protection->INT;
+    $modificateur_CHA += $protection->CHA;
+    $modificateur_AD  += $protection->AD;
+    $modificateur_FO  += $protection->FOR;
+}
+
+foreach($aventurier->equipements as $equipement)
+{
+    $modificateur_COU += $equipement->COU;
+    $modificateur_INT += $equipement->INT;
+    $modificateur_CHA += $equipement->CHA;
+    $modificateur_AD  += $equipement->AD;
+    $modificateur_FO  += $equipement->FO;
+}
+
+if($modificateur_COU != 0)
+{
+    if($modificateur_COU > 0)
+    {
+        imagettftext($image, $fontSize, 0, 497, 332, $vert, $font, $aventurier->COU+$modificateur_COU);
+    }
+    else
+    {
+        imagettftext($image, $fontSize, 0, 497, 332, $rouge, $font, $aventurier->COU+$modificateur_COU);
+    }
+}
+
+if($modificateur_INT != 0)
+{
+    if($modificateur_INT > 0)
+    {
+        imagettftext($image, $fontSize, 0, 497, 364, $vert, $font, $aventurier->INT+$modificateur_INT);
+    }
+    else
+    {
+        imagettftext($image, $fontSize, 0, 497, 364, $rouge, $font, $aventurier->INT+$modificateur_INT);
+    }
+}
+
+if($modificateur_CHA != 0)
+{
+    if($modificateur_CHA > 0)
+    {
+        imagettftext($image, $fontSize, 0, 497, 395, $vert, $font, $aventurier->CHA+$modificateur_CHA);
+    }
+    else
+    {
+        imagettftext($image, $fontSize, 0, 497, 394, $rouge, $font, $aventurier->CHA+$modificateur_CHA);
+    }
+}
+
+if($modificateur_AD != 0)
+{
+    if($modificateur_AD > 0)
+    {
+        imagettftext($image, $fontSize, 0, 497, 425, $vert, $font, $aventurier->AD+$modificateur_AD);
+    }
+    else
+    {
+        imagettftext($image, $fontSize, 0, 497, 425, $rouge, $font, $aventurier->AD+$modificateur_AD);
+    }
+}
+
+if($modificateur_FO != 0)
+{
+    if($modificateur_FO > 0)
+    {
+        imagettftext($image, $fontSize, 0, 497, 456, $vert, $font, $aventurier->FO+$modificateur_FO);
+    }
+    else
+    {
+        imagettftext($image, $fontSize, 0, 497, 456, $rouge, $font, $aventurier->FO+$modificateur_FO);
+    }
+}
 
 imagettftext($image, $fontSize, 0, 392, 549, $noir, $font, $aventurier->AT);
 imagettftext($image, $fontSize, 0, 392, 581, $noir, $font, $aventurier->PRD);
@@ -106,6 +202,40 @@ foreach($aventurier->competences as $competence)
 	$nbr++;
 }
 
+$compte_arme = 0;
+$modif__=0;
+foreach($aventurier->armes as $arme)
+{    
+    $nom = $arme->NOM;
+	$modif = $arme->modif();
+    if(!empty($modif))
+    {
+        $nom .= "(".str_replace("<br>","/",$arme->modif()).")";
+    }
+    $font_size_temp = $fontSize;
+    $dimensions = imagettfbbox($font_size_temp, 0, $font, $nom);
+    $lineWidth = $dimensions[2] - $dimensions[0];
+    while(($lineWidth = ($dimensions[2] - $dimensions[0])) > 300)
+    {
+        $font_size_temp = $font_size_temp - 1;
+        $dimensions = imagettfbbox($font_size_temp, 0, $font, $nom);
+        $lineWidth = $dimensions[2] - $dimensions[0];
+    }
+    
+    imagettftext($image, $font_size_temp, 0, 235, intval(886 + $compte_arme*21.3), $noir, $font, $nom);
+    imagettftext($image, $fontSize, 0, 555, intval(886 + $compte_arme*21.3), $noir, $font, $arme->PI);
+    imagettftext($image, $fontSize, 0, 630, intval(886 + $compte_arme*21.3), $noir, $font, $arme->RUP);
+    
+    if($arme->type != "arc" && $arme->type != "arbalète" && $arme->type != "Arme à poudre(lire doc)")
+    {
+        imagettftext($image, $fontSize, 0, (497+($modif__*53)), 549, $noir, $font, $aventurier->AT+$arme->AT);
+        imagettftext($image, $fontSize, 0, (497+($modif__*53)), 581, $noir, $font, $aventurier->PRD+$arme->PRD);
+        imagettftext($image, $fontSize*0.7, 0, (497+($modif__*53))-15, 600, $noir, $font, substr($arme->NOM,0,6));
+        $modif__++;
+    }    
+    $compte_arme++;
+}
+
 $string = "";
 $string_temp = "";
 $compte = 0;
@@ -114,7 +244,32 @@ $deja_ecrit = array();
 $limite_largeur_cadre = 535;
 foreach($aventurier->equipements as $key=>$equipement)
 {
-     if(!in_array($key,$deja_ecrit) && $equipement->precieux == 0)
+    if($equipement->type == "munition")
+    {
+        $munition = "";
+        if($equipement->nombre == 1)
+        {
+            $munition = $equipement->NOM; 
+        }
+        
+        else
+        {
+            $munition = "(".$equipement->nombre.")".$equipement->NOM; 
+        }
+        
+        $font_size_temp = $fontSize;
+        $dimensions = imagettfbbox($font_size_temp, 0, $font, $munition);
+        $lineWidth = $dimensions[2] - $dimensions[0];
+        while(($lineWidth = ($dimensions[2] - $dimensions[0])) > 300)
+        {
+            $font_size_temp = $font_size_temp - 1;
+            $dimensions = imagettfbbox($font_size_temp, 0, $font, $munition);
+            $lineWidth = $dimensions[2] - $dimensions[0];
+        }        
+        imagettftext($image, $font_size_temp, 0, 235, intval(886 + $compte_arme*21.3), $noir, $font, $munition);        
+        $compte_arme = $compte_arme+1;
+    }
+    else if(!in_array($key,$deja_ecrit) && $equipement->precieux == 0)
     {
         $string_temp = $string;
         if($compte > 0)
@@ -220,31 +375,6 @@ foreach($aventurier->equipements as $key=>$equipement)
         imagettftext($image, $font_size_temp, 0, 10, intval(1010 + $nbrPrecieux*22), $noir, $font, $nom);
         $nbrPrecieux++;
     }
-}
-
-$compte_arme = 0;
-foreach($aventurier->armes as $arme)
-{    
-    $nom = $arme->NOM;
-	$modif = $arme->modif();
-    if(!empty($modif))
-    {
-        $nom .= "(".str_replace("<br>","",$arme->modif()).")";
-    }
-    $font_size_temp = $fontSize;
-    $dimensions = imagettfbbox($font_size_temp, 0, $font, $nom);
-    $lineWidth = $dimensions[2] - $dimensions[0];
-    while(($lineWidth = ($dimensions[2] - $dimensions[0])) > 300)
-    {
-        $font_size_temp = $font_size_temp - 1;
-        $dimensions = imagettfbbox($font_size_temp, 0, $font, $nom);
-        $lineWidth = $dimensions[2] - $dimensions[0];
-    }
-    
-    imagettftext($image, $font_size_temp, 0, 235, intval(886 + $compte_arme*21.3), $noir, $font, $nom);
-    imagettftext($image, $fontSize, 0, 555, intval(886 + $compte_arme*21.3), $noir, $font, $arme->PI);
-    imagettftext($image, $fontSize, 0, 630, intval(886 + $compte_arme*21.3), $noir, $font, $arme->RUP);
-    $compte_arme++;
 }
 
 $compte_protection = 0;
