@@ -34,7 +34,27 @@ $fontSizeEquipement = 16;
 imagettftext($image, $fontSize, 0, 310, 135, $noir, $font, $aventurier->NOM);
 imagettftext($image, $fontSize, 0, 760, 135, $noir, $font, $aventurier->SEXE);
 imagettftext($image, $fontSize, 0, 325, 188, $noir, $font, $aventurier->ORIGINE);
-imagettftext($image, $fontSize, 0, 605, 188, $noir, $font, $aventurier->METIER);
+if( $aventurier->METIER->NOM == "Mage")
+{
+    imagettftext($image, $fontSize, 0, 605, 188, $noir, $font, $aventurier->METIER." (".$aventurier->magie.")");
+}
+else if( $aventurier->METIER->NOM == "Pretre" || $aventurier->METIER->NOM == "Paladin")
+{
+    $temp = $aventurier->METIER;
+    if(in_array(substr($aventurier->dieu,0,1),array("A","E","I","O","U","Y")))
+    {
+        $temp .= " d'".$aventurier->dieu;
+    }
+    else
+    {
+        $temp .= " de ".$aventurier->dieu;
+    }
+    imagettftext($image, $fontSize, 0, 605, 188, $noir, $font, $temp);
+}
+else
+{
+    imagettftext($image, $fontSize, 0, 605, 188, $noir, $font, $aventurier->METIER);
+}
 imagettftext($image, $fontSize, 0, 562, 244, $noir, $font, $aventurier->EV);
 if($aventurier->EA != 0)
 {

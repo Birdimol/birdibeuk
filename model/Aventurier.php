@@ -122,7 +122,20 @@ class Aventurier
     //get
     public function __get($var)
     {
-        return $this->$var;	
+        if($var == "magie")
+        {
+            $magie = new Magie($this->ID_TYPEMAGIE);
+            return $magie->NOM;
+        }
+        else if($var == "dieu")
+        {
+            $dieu = new Dieu($this->ID_DIEU);
+            return $dieu->NOM;
+        }
+        else
+        {
+            return $this->$var;	
+        }
     }
     
     //set
@@ -890,6 +903,23 @@ class Aventurier
                 if( $aventurier->METIER->NOM == "Aucun")
                 {
                     echo "sans profession";
+                }
+                else if( $aventurier->METIER->NOM == "Mage")
+                {
+                    echo $aventurier->METIER->NOM." (".$aventurier->magie.")";
+                }
+                else if( $aventurier->METIER->NOM == "Pretre" || $aventurier->METIER->NOM == "Paladin")
+                {
+                    $temp = $aventurier->METIER;
+                    if(in_array(substr($aventurier->dieu,0,1),array("A","E","I","O","U","Y")))
+                    {
+                        $temp .= " d'".$aventurier->dieu;
+                    }
+                    else
+                    {
+                        $temp .= " de ".$aventurier->dieu;
+                    }
+                    echo $temp;
                 }
                 else
                 {

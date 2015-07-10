@@ -90,22 +90,35 @@
                 {
                     $aventurier->$_GET["competenceRetiree"]--;
                     $aventurier->$_GET["competenceAjoutee"]++;
-                }
-                
+                }                
                 //si c'est un mage
-                
-                    
-                //si c'est un pretre 
-                
-                    
-                //si c'est un paladin 
-                                       
+                else if($aventurier->METIER->NOM == "Mage")
+                {
+                    $aventurier->ID_TYPEMAGIE = $_GET["magie"];
+                }
+                //si c'est un pretre //si c'est un paladin 
+                else if($aventurier->METIER->NOM == "Pretre" || $aventurier->METIER->NOM == "Paladin")
+                {
+                    $aventurier->ID_DIEU = $_GET["dieu"];
+                }                      
                     
                 //si c'est un ogre
                 
+                
                 $_SESSION["birdibeuk_aventurier"] = serialize($aventurier);
                 
-                include("view/nouvelAventurierEquipement.php");
+                //si il a 13 ou plus en adresse
+                    /*
+                        On peut augmenter au choix la PRD ou l'AT
+                    */
+                if($aventurier->AD > 12)
+                {
+                    include("view/nouvelAventurierSpecialAD.php");
+                }
+                else
+                {
+                    include("view/nouvelAventurierEquipement.php");
+                }
             break;
             
             case 5:
@@ -153,6 +166,32 @@
                     */
                     include("view/nouvelAventurierSpecialIngenieur.php");
                 }
+                else if($aventurier->METIER->NOM == "Mage")
+                {
+                    /*
+                        Choisir spécialité
+                    */
+                    $magies = Magie::Lister();
+                    include("view/nouvelAventurierSpecialMage.php");
+                }
+                else if($aventurier->METIER->NOM == "Pretre")
+                {
+                    //si c'est un pretre 
+                    /*
+                        Choisir dieu
+                    */
+                    $dieux = Dieu::Lister();
+                    include("view/nouvelAventurierSpecialPretre.php");
+                }
+                else if($aventurier->METIER->NOM == "Paladin")
+                {
+                    //si c'est un paladin 
+                    /*
+                        Choisir dieu
+                    */   
+                    $dieux = Dieu::Lister();
+                    include("view/nouvelAventurierSpecialPaladin.php");
+                }
                 else
                 {
                     $aventurier = unserialize($_SESSION["birdibeuk_aventurier"]);
@@ -165,22 +204,7 @@
                     $types_equipement = Equipement::ListerTypesEquipementDeBase();
                     include("view/nouvelAventurierEquipement.php");
                 }
-                
-                
-                //si c'est un mage
-                    /*
-                        Choisir spécialité
-                    */
-                    
-                //si c'est un pretre 
-                    /*
-                        Choisir dieu
-                    */
-                    
-                //si c'est un paladin 
-                    /*
-                        Choisir dieu
-                    */                                       
+                                              
                     
                 //si c'est un ogre
                     /*
@@ -190,11 +214,6 @@
                         être modifié par la suite.
                     */     
 
-                //si il a 13 ou plus en adresse
-                    /*
-                        On peut augmenter au choix la PRD ou l'AT
-                    */
-                
             break;
             
             case 4:

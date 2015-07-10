@@ -6,6 +6,10 @@ function showPDF(doc)
     {
         $("#doc").attr('data',  "pdf/fiche-metier-guerrier.pdf");
     }
+    else if(doc == 'magie')
+    {
+        $("#doc").attr('data',  "pdf/types-de-magie-naheulbeuk-jdr.pdf");
+    }
     else if(doc == "Bourgeois")
     {
         $("#doc").attr('data',  "pdf/fiche-metier-bourgeois.pdf");

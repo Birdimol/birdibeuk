@@ -26,13 +26,35 @@ $vert = imagecolorallocate($image, 0, 144, 0);
 $rouge = imagecolorallocate($image, 144, 0, 0);
 
 $font = __DIR__."/../fonts/VINERITC.TTF"; 
-$fontSize = 12;
+$fontSize = 16;
 $fontSizeEquipement = 10;
 
 imagettftext($image, $fontSize, 0, 240, 105, $noir, $font, $aventurier->NOM);
 imagettftext($image, $fontSize, 0, 600, 105, $noir, $font, $aventurier->SEXE);
 imagettftext($image, $fontSize, 0, 256, 147, $noir, $font, $aventurier->ORIGINE);
-imagettftext($image, $fontSize, 0, 470, 147, $noir, $font, $aventurier->METIER);
+if( $aventurier->METIER->NOM == "Mage")
+{
+    imagettftext($image, $fontSize, 0, 470, 147, $noir, $font, $aventurier->METIER." (".$aventurier->magie.")");
+}
+else if( $aventurier->METIER->NOM == "Pretre" || $aventurier->METIER->NOM == "Paladin")
+{
+    $temp = $aventurier->METIER;
+    if(in_array(substr($aventurier->dieu,0,1),array("A","E","I","O","U","Y")))
+    {
+        $temp .= " d'".$aventurier->dieu;
+    }
+    else
+    {
+        $temp .= " de ".$aventurier->dieu;
+    }
+    imagettftext($image, $fontSize, 0, 470, 147, $noir, $font, $temp);
+}
+else
+{
+    imagettftext($image, $fontSize, 0, 470, 147, $noir, $font, $aventurier->METIER);
+}
+
+$fontSize = 12;
 imagettftext($image, $fontSize, 0, 441, 190, $noir, $font, $aventurier->EV);
 
 if($aventurier->EA != 0)

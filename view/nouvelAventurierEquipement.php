@@ -55,6 +55,7 @@
                             <div style='width:600px;height:150px;overflow:auto;background-image:url("image/bg3.png");border: 1px #900000 solid;'>
                                 <table id='equipements' style='width:100%;'>
                                     <tr><th>Nombre</th><th>Nom</th><th>Prix</th></tr>
+                                    
                                 </table>   
                             </div>
                         </td>
@@ -194,6 +195,13 @@
     }
 
     var id = 0;
+    <?php 
+        if($aventurier->METIER == "Mage")
+        {
+            echo "ajout_equi(,'Grimoire des Ordres Néfastes niveau 1',5);\n";
+            echo "ajout_equi(,'Grimoire des Ordres Néfastes niveau 2',10);";
+        }
+    ?>
     function ajout_equi(id_equi,nom,prix)
     {        
         po = parseFloat($('#porestantes').html());
