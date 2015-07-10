@@ -32,17 +32,19 @@
                             <td class='tdMenuVide'>|</td>
                             <td class='tdMenu'><a href='index.php?ctrl=gestionCompagnies'>Compagnies</a></td>
                         <?php
-                        
+                        /*
                         if($user->mj)
-                        {
-                            ?>
-                            <td class='tdMenuVide'>|</td>
-                            <td class='tdMenu'><a href='index.php?ctrl=outilsMJ'>Outils MJ</a></td>
-                            <?php 
-                        }
+                        {*/
+                           
+                       // }
                     }
                     else
                     {
+                         ?>
+                            
+                            <td class='tdMenu'><a href='index.php?ctrl=outilsMJ'>Outils MJ</a></td>
+                            <td class='tdMenuVide'>|</td>
+                            <?php 
                         ?>
                             <td class='tdMenu'><a href='index.php?ctrl=inscriptionConnexion'>S'inscrire/Se connecter</a></td>
                         <?php

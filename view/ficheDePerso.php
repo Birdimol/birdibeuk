@@ -222,7 +222,17 @@ foreach($aventurier->armes as $arme)
     }
     
     imagettftext($image, $font_size_temp, 0, 295, intval(1133 + $compte_arme*27), $noir, $font, $nom);
-    imagettftext($image, $fontSize, 0, 700, intval(1133 + $compte_arme*27), $noir, $font, $arme->PI);
+    $temp = $arme->PI;
+    $bonus_pi = "";
+    if($aventurier->FO > 12)
+    {
+        $bonus_pi = "+".($aventurier->FO - 12);
+    }
+    else if($aventurier->FO < 9)
+    {
+        $bonus_pi = "-1";
+    }
+    imagettftext($image, $fontSize*0.7, 0, 700, intval(1133 + $compte_arme*27), $noir, $font, $temp.$bonus_pi);
     imagettftext($image, $fontSize, 0, 800, intval(1133 + $compte_arme*27), $noir, $font, $arme->RUP);
     
     if($arme->type != "arc" && $arme->type != "arbalète" && $arme->type != "Arme à poudre(lire doc)")
