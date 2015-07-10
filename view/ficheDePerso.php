@@ -180,7 +180,13 @@ else
 
 if($aventurier->PR != 0)
 {
-    imagettftext($image, $fontSize, 0, 945, 892, $noir, $font, $aventurier->PR);
+    $temp = $aventurier->PR;
+    if( $aventurier->possedeCompetence(new Competence(49)))
+    {
+        $temp .= "+1";
+    }
+    
+    imagettftext($image, $fontSize, 0, 928, 892, $noir, $font, $temp);
 }
 
 

@@ -175,14 +175,20 @@ imagettftext($image, $fontSize, 0, 95, 624, $noir, $font, $aventurier->CUIVRE);
 
 imagettftext($image, $fontSize, 0, 760, 281, $noir, $font, $aventurier->RESISTMAG);
 
-imagettftext($image, 20, 0, 735, intval(696), $noir, $font, $aventurier->PR);
+$temp = $aventurier->PR;
+if( $aventurier->possedeCompetence(new Competence(49)))
+{
+    $temp .= "+1";
+}    
+imagettftext($image, 14, 0, 725, intval(696), $noir, $font, $temp);
+
 if($aventurier->PR_MAX == 0)
 {
-    imagettftext($image, 15, 0, 705, 723, $noir, $font, "pas de limite");
+    imagettftext($image, 12, 0, 705, 723, $noir, $font, "pas de limite");
 }
 else
 {
-    imagettftext($image, 15, 0, 710, 723, $noir, $font, "max : ".$aventurier->PR_MAX);
+    imagettftext($image, 12, 0, 710, 723, $noir, $font, "max : ".$aventurier->PR_MAX);
 }
 
 //MAGIEPHYS
