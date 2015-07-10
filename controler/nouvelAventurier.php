@@ -100,10 +100,22 @@
                 else if($aventurier->METIER->NOM == "Pretre" || $aventurier->METIER->NOM == "Paladin")
                 {
                     $aventurier->ID_DIEU = $_GET["dieu"];
-                }                      
+                }
                     
                 //si c'est un ogre
                 
+                //si on a compté son bonus d'adresse
+                if(isset($_GET["BonusADFait"]))
+                {
+                    if($_GET["augmenter"] == "AT")
+                    {
+                        $aventurier->AT++;
+                    }
+                    else
+                    {
+                        $aventurier->PRD++;
+                    }
+                }
                 
                 $_SESSION["birdibeuk_aventurier"] = serialize($aventurier);
                 
@@ -111,7 +123,7 @@
                     /*
                         On peut augmenter au choix la PRD ou l'AT
                     */
-                if($aventurier->AD > 12)
+                if($aventurier->AD > 12 && $aventurier->METIER != "Assassin" && !isset($_GET["BonusADFait"]))
                 {
                     include("view/nouvelAventurierSpecialAD.php");
                 }
@@ -191,6 +203,10 @@
                     */   
                     $dieux = Dieu::Lister();
                     include("view/nouvelAventurierSpecialPaladin.php");
+                }
+                else if($aventurier->AD > 12 && $aventurier->METIER != "Assassin" && !isset($_GET["BonusADFait"]))
+                {
+                    include("view/nouvelAventurierSpecialAD.php");
                 }
                 else
                 {

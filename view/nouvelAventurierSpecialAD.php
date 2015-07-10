@@ -1,10 +1,10 @@
 <div class='principal_avec_pub'>
-    <h1 style='text-align:center;'>Spécialisation du Paladin.</h1>
+    <h1 style='text-align:center;'>Bonus d'adresse</h1>
     <?php 
         $aventurier->printAsTable();
     ?>
     <div>
-        Un paladin se doit de choisir un Dieu.
+        Votre adresse est impressionnante ! Une telle adresse vous donne le droit d'augmenter au choix l'attaque ou la parade !
     </div><br>
     <style>
         select
@@ -16,28 +16,9 @@
         <form action='index.php' method='get'>
             <input type='hidden' name='etape' value='6' />
             <input type='hidden' name='ctrl' value='nouvelAventurier' />  
-            <?php 
-            foreach($dieux as $dieu)
-            {
-                if($dieu->PALADIN)
-                {
-                    echo "<div class='cadreRouge' style=\"background-image:url('image/bg4.png');font-size:16px;\" ><u>".$dieu->NOM."</u><br><br>".$dieu->DESCRIPTION."</div><br>";
-                }
-            }
-            ?>
-            Vous choisissez le dieu : 
-            <select name='dieu' id='dieu'>
-               <?php 
-                    foreach($dieux as $dieu)
-                    {
-                        if($dieu->PRETRE)
-                        {
-                            echo "<option value='".$dieu->ID_DIEU."' >".$dieu->NOM."</option>";
-                        }
-                    }
-               ?>
-            </select> <input class='bouton' type='submit' value='confirmer' style='width:150px;'/><br>
-            <i>*Toutes les disciplines ne sont pas encore disponible car tous les grimoires ne sont pas encore rédigés.</i>
+            <input type='hidden' name='BonusADFait' value='1' />  
+            Vous désirez augmenter <select name='augmenter'><option value='AT'>l'attaque</option><option value='PRD'>la parade</option></select>.
+            <input type='submit'  value='Continuer' />  
         </form>
     </div>
 </div>

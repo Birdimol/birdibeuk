@@ -20,6 +20,9 @@
             $aventurier = new Aventurier();
             $aventurier->set_all_from_form($_POST);
             
+            $magies = Magie::Lister();
+            $dieux = Dieu::Lister();
+            
             //remise à 0 des objets
             $aventurier->armes = array();
             $aventurier->equipements = array();
@@ -190,6 +193,10 @@
                 $metiers = Metier::Lister();
                 $origines = Origine::Lister();
                 $competences = Competence::Lister();
+                
+                $magies = Magie::Lister();
+                $dieux = Dieu::Lister();
+                
                 include("view/ficheRapideModification.php");
             }
             else
@@ -411,6 +418,10 @@
                     }
                 }   
                 $aventurier->modifier();
+                
+                $magies = Magie::Lister();
+                $dieux = Dieu::Lister();
+                
                 include("view/ficheRapideModification.php");
                 
             }
@@ -434,6 +445,9 @@
         $metiers = Metier::Lister();
         $origines = Origine::Lister();
         $competences = Competence::Lister();
+        
+        $magies = Magie::Lister();
+        $dieux = Dieu::Lister();
        
         include("view/ficheRapide.php");
     }

@@ -76,6 +76,44 @@
             <tr><td><label for='RESISTMAG'>RESISTANCE MAGIQUE</label></td><td><input type='text' id='RESISTMAG' value='<?php echo $aventurier->RESISTMAG;?>' name='RESISTMAG' /></td></tr>
             <tr><td><label for='MAGIEPHYS'>MAGIE PHYSIQUE</label></td><td><input type='text' id='MAGIEPHYS' value='<?php echo $aventurier->MAGIEPHYS;?>' name='MAGIEPHYS' /></td></tr>
             <tr><td><label for='MAGIEPSY'>MAGIE PSYCHIQUE</label></td><td><input type='text' id='MAGIEPSY' value='<?php echo $aventurier->MAGIEPSY;?>' name='MAGIEPSY' /></td></tr>
+            
+            <tr>
+                <td><label for='ID_TYPEMAGIE'>TYPE DE MAGIE</label></td>
+                <td>
+                    <select id='ID_TYPEMAGIE' value='' name='ID_TYPEMAGIE'  class='normal'>
+                        <option value='0'>Aucune</option>
+                    <?php 
+                        foreach($magies as $magie)
+                        {
+                            echo "<option value='".$magie->ID_MAGIE."' ";
+                            if($magie->ID_MAGIE == $aventurier->ID_TYPEMAGIE)
+                            {
+                                echo " selected ";
+                            }
+                            echo ">".$magie->NOM."</option>";
+                        }
+                    ?>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for='ID_DIEU'>DIEU</label></td>
+                <td>
+                    <select id='ID_DIEU' value='' name='ID_DIEU'  class='normal'>
+                         <option value='0'>Aucun</option>
+                    <?php 
+                        foreach($dieux as $dieu)
+                        {
+                            echo "<option value='".$dieu->ID_DIEU."' ";
+                            if($dieu->ID_DIEU == $aventurier->ID_DIEU)
+                            {
+                                echo " selected ";
+                            }
+                            echo ">".$dieu->NOM."</option>";
+                        }
+                    ?>
+                    </select></td></td>
+            </tr>
+            
             <tr><td><label for='XP'>XP</label></td><td><input type='text' id='XP' value='<?php echo $aventurier->XP;?>' name='XP' /></td></tr>
             <tr><td><label for='DESTIN'>DESTIN</label></td><td><input type='text' id='DESTIN' value='<?php echo $aventurier->DESTIN;?>' name='DESTIN' /></td></tr>
             <tr><td><label for='OR'>PIECES D'OR</label></td><td><input type='text' id='OR' value='<?php echo $aventurier->OR;?>' name='OR' /></td></tr>
