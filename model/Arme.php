@@ -425,7 +425,7 @@ class Arme
     {
 		$this->verifieValeurs();
         $db = getConnexionDB();
-        $requete = "INSERT INTO arme (NOM, NOM_COURT, PRIX, PI, RUP, AT, PRD, COU, `INT`, CHA, AD, `FOR`, SPECIAL, JET, qualite, `type`, deuxmains, debase) VALUES ('".$this->NOM."', '".$this->NOM_COURT."', ".$this->PRIX.", '".$this->PI."', '".$this->RUP."', ".$this->AT.", ".$this->PRD.", ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FOR.", '".$this->SPECIAL."', ".$this->JET.", ".$this->qualite.", '".$this->type."', ".$this->deuxmains.", ".$this->debase.")";
+        $requete = "INSERT INTO arme (NOM, NOM_COURT, PRIX, PI, RUP, AT, PRD, COU, `INT`, CHA, AD, `FOR`, SPECIAL, JET, qualite, `type`, deuxmains, debase) VALUES ('".str_replace("'","''",$this->NOM)."', '".$this->NOM_COURT."', ".$this->PRIX.", '".$this->PI."', '".$this->RUP."', ".$this->AT.", ".$this->PRD.", ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FOR.", '".$this->SPECIAL."', ".$this->JET.", ".$this->qualite.", '".$this->type."', ".$this->deuxmains.", ".$this->debase.")";
 
         $stmt = $db->prepare($requete);
         $stmt->execute();
@@ -436,7 +436,7 @@ class Arme
     {
 		$this->verifieValeurs();
         $db = getConnexionDB();        
-        $requete = "UPDATE arme SET NOM = '".$this->NOM."', NOM_COURT = '".$this->NOM_COURT."', PRIX = ".$this->PRIX.", PI = '".$this->PI."', RUP = '".$this->RUP."', AT = ".$this->AT.", PRD = ".$this->PRD.", COU = ".$this->COU.", `INT` = ".$this->INT.", CHA = ".$this->CHA.", AD = ".$this->AD.", `FOR` = ".$this->FOR.", SPECIAL = '".$this->SPECIAL."', JET = ".$this->JET.", qualite = ".$this->qualite.", type = '".$this->type."', deuxmains = ".$this->deuxmains.", debase = ".$this->debase." WHERE ID = ".$this->ID;
+        $requete = "UPDATE arme SET NOM = '".str_replace("'","''",$this->NOM)."', NOM_COURT = '".$this->NOM_COURT."', PRIX = ".$this->PRIX.", PI = '".$this->PI."', RUP = '".$this->RUP."', AT = ".$this->AT.", PRD = ".$this->PRD.", COU = ".$this->COU.", `INT` = ".$this->INT.", CHA = ".$this->CHA.", AD = ".$this->AD.", `FOR` = ".$this->FOR.", SPECIAL = '".$this->SPECIAL."', JET = ".$this->JET.", qualite = ".$this->qualite.", type = '".$this->type."', deuxmains = ".$this->deuxmains.", debase = ".$this->debase." WHERE ID = ".$this->ID;
         
         $stmt = $db->prepare($requete);
         $stmt->execute();

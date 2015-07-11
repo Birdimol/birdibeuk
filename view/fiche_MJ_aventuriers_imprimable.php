@@ -1,3 +1,12 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="author" content="Favay Thomas">
+	</head>
+	<body>
     <?php 
         include(__DIR__."/../config/param.php");
         include(__DIR__."/../model/autoloader.php");
@@ -212,4 +221,5 @@
             </td>
         </tr>
     </table>
-
+	</body>
+</html>

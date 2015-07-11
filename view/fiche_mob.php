@@ -1,6 +1,6 @@
 <div class='principal_avec_pub'>
     <form action='index.php?ctrl=outilsMJ&action=creation_fiche_mob' method='post'>
-        <div class='cadreRouge' style="background-image:url('image/bg4.png');font-size:16px;width:800px;margin:auto;">
+        <div class='cadreRouge' style="background-image:url('image/bg4.png');font-size:16px;width:900px;margin:auto;">
             <div style='text-align:center;'>Bandits</div>
             <br>
             <table style='border-collapse:collapse;padding:5px;margin:auto;'>

@@ -152,8 +152,20 @@ class Mob
         //ARMES
         foreach($types as $type)
         {
+			$types2 = explode("/",$type);
             $tableau = array();
-            $requete = "SELECT * FROM arme where PI = '".$this->pi."' and debase = 1 and type = '".$type."' ";
+            $requete = "SELECT * FROM arme where PI = '".$this->pi."' and debase = 1 and ( ";
+			$compte = 0;
+			foreach($types2 as $type2)
+			{
+				if($compte > 0)
+				{
+					$requete .= " OR ";
+				}
+				$requete .= " type = '".$type2."' ";
+				$compte++;
+			} 
+			$requete.= ") and prix < ".($this->niv_max*30)." ";
 
             $stmt = $db->prepare($requete);
             $stmt->execute();
@@ -172,7 +184,7 @@ class Mob
             {
                 
                 $tableau = array();
-                $requete = "SELECT * FROM arme where debase = 1 and type = '".$type."' ";
+                $requete = "SELECT * FROM arme where debase = 1 and type = '".$type."' and prix < ".($this->niv_max*30)." ";
 
                 $stmt = $db->prepare($requete);
                 $stmt->execute(array("PI"=>$this->pi));
@@ -211,7 +223,10 @@ class Mob
                 }
                 else
                 {
-                    $lootPotentiel[] = $equipement;
+                    if($equipement->type != "grimoire" && $equipement->type != "livre de prodiges")
+					{
+						$lootPotentiel[] = $equipement;
+					}					
                 }
             }
         }

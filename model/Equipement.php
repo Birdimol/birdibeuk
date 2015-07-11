@@ -248,7 +248,7 @@ class Equipement
         
         $db = getConnexionDB();
         $requete = "INSERT INTO equipement (NOM, SPECIAL, PO, PA, PC, COU, `INT`, CHA, AD, FO, munition, debase, type, AT, PRD) 
-        VALUES ('".$this->NOM."', '".$this->SPECIAL."', ".$this->PO.", ".$this->PA.", ".$this->PC.", ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FO.", ".$this->munition.", ".$this->debase.", '".$this->type."', ".$this->AT.", ".$this->PRD.")";
+        VALUES ('".str_replace("'","''",$this->NOM)."', '".$this->SPECIAL."', ".$this->PO.", ".$this->PA.", ".$this->PC.", ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FO.", ".$this->munition.", ".$this->debase.", '".$this->type."', ".$this->AT.", ".$this->PRD.")";
 
         $stmt = $db->prepare($requete);
         $stmt->execute();

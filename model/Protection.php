@@ -285,7 +285,7 @@ class Protection
     {
         $this->verifieValeurs();
         $db = getConnexionDB();
-        $requete = "INSERT INTO protection (NOM, NOM_COURT, PR, RUP, COU, `INT`, CHA, AD, `FOR`, SPECIAL, AT, PRD, PRIX, QUALITE, TYPE, debase) VALUES ('".$this->NOM."', '".$this->NOM_COURT."', ".$this->PR.", '".$this->RUP."', ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FOR.", '".$this->SPECIAL."', ".$this->AT.", ".$this->PRD.", ".$this->PRIX.", ".$this->QUALITE.", '".$this->TYPE."', ".$this->debase.")";
+        $requete = "INSERT INTO protection (NOM, NOM_COURT, PR, RUP, COU, `INT`, CHA, AD, `FOR`, SPECIAL, AT, PRD, PRIX, QUALITE, TYPE, debase) VALUES ('".str_replace("'","''",$this->NOM)."', '".$this->NOM_COURT."', ".$this->PR.", '".$this->RUP."', ".$this->COU.", ".$this->INT.", ".$this->CHA.", ".$this->AD.", ".$this->FOR.", '".$this->SPECIAL."', ".$this->AT.", ".$this->PRD.", ".$this->PRIX.", ".$this->QUALITE.", '".$this->TYPE."', ".$this->debase.")";
 
         $stmt = $db->prepare($requete);
         $stmt->execute();
@@ -296,7 +296,7 @@ class Protection
     {
         $this->verifieValeurs();
         $db = getConnexionDB();
-        $requete = "UPDATE protection SET NOM = '".$this->NOM."', NOM_COURT = '".$this->NOM_COURT."', PR = ".$this->PR.", RUP = '".$this->RUP."', COU = ".$this->COU.", `INT` = ".$this->INT.", CHA = ".$this->CHA.", AD = ".$this->AD.", `FOR` = ".$this->FOR.", SPECIAL = '".$this->SPECIAL."', AT = ".$this->AT.", PRD = ".$this->PRD.", PRIX = ".$this->PRIX.", QUALITE = ".$this->QUALITE.", TYPE = '".$this->TYPE."', debase = ".$this->debase." WHERE ID = ".$this->ID;
+        $requete = "UPDATE protection SET NOM = '".str_replace("'","''",$this->NOM)."', NOM_COURT = '".$this->NOM_COURT."', PR = ".$this->PR.", RUP = '".$this->RUP."', COU = ".$this->COU.", `INT` = ".$this->INT.", CHA = ".$this->CHA.", AD = ".$this->AD.", `FOR` = ".$this->FOR.", SPECIAL = '".$this->SPECIAL."', AT = ".$this->AT.", PRD = ".$this->PRD.", PRIX = ".$this->PRIX.", QUALITE = ".$this->QUALITE.", TYPE = '".$this->TYPE."', debase = ".$this->debase." WHERE ID = ".$this->ID;
         $stmt = $db->prepare($requete);
         $stmt->execute();
     }

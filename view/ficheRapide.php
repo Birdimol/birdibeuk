@@ -536,7 +536,7 @@
             prix += "."+pa+pc;
         }
         id++;
-        $('#equipements').append('<tr id=\'ligneEqui'+id+'\'><td name=\'nombreNouvelEqui'+id+'\' id=\'nombreNouvelEqui'+id+'\' style=\'text-align:center;\' >'+nombre+'</td><td style=\'text-align:center;\' ><input type=\'hidden\' id=\'hidNombreNouvelEqui'+id+'\' name=\'hidNombreNouvelEqui'+id+'\' value=\''+nombre+'\'/><input type=\'hidden\' id=\'nomNouvelEqui'+id+'\' name=\'nomNouvelEqui'+id+'\' value=\''+nom+'\'/><input type=\'hidden\' name=\'prixNouvelEqui'+id+'\' value=\''+prix+'\'/>'+nom+'</td><td style=\'text-align:center\' ><input type=\'checkbox\' name=\'NouvelEqui'+id+'precieux\' /><td style=\'text-align:center;\' >'+prix+'</td><td><input type=\'button\' value=\'Retirer\' onclick="retirer_equipement(\'ligneEqui'+id+'\',0,'+prix+');" /></td></tr>');            
+        $('#equipements').append('<tr id=\'ligneEqui'+id+'\'><td name=\'nombreNouvelEqui'+id+'\' id=\'nombreNouvelEqui'+id+'\' style=\'text-align:center;\' >'+nombre+'</td><td style=\'text-align:center;\' ><input type=\'hidden\' id=\'hidNombreNouvelEqui'+id+'\' name=\'hidNombreNouvelEqui'+id+'\' value=\''+nombre+'\'/><input type=\'hidden\' id=\'nomNouvelEqui'+id+'\' name=\'nomNouvelEqui'+id+'\' value="'+nom+'"/><input type=\'hidden\' name=\'prixNouvelEqui'+id+'\' value=\''+prix+'\'/>'+nom+'</td><td style=\'text-align:center\' ><input type=\'checkbox\' name=\'NouvelEqui'+id+'precieux\' /><td style=\'text-align:center;\' >'+prix+'</td><td><input type=\'button\' value=\'Retirer\' onclick="retirer_equipement(\'ligneEqui'+id+'\',0,'+prix+');" /></td></tr>');            
     }
     
     function retirer_equipement(id_ligne,id_equi,prix)
@@ -676,7 +676,7 @@
         type = $("#TYPENouvelArme").val(); 
 
         libelle_type = $("#TYPENouvelArme option:selected").text();
-        $('#armes').append('<tr id=\'ligneArme'+id+'\'><input type=\'hidden\' name=\'nomNouvelArme'+id+'\' value=\''+nom+'\'/><input type=\'hidden\' name=\'poNouvelArme'+id+'\' value=\''+po+'\'/><input type=\'hidden\' name=\'piNouvelArme'+id+'\' value=\''+pi+'\'/><input type=\'hidden\' name=\'rupNouvelArme'+id+'\' value=\''+rup+'\'/><input type=\'hidden\' name=\'atNouvelArme'+id+'\' value=\''+at+'\'/><input type=\'hidden\' name=\'prdNouvelArme'+id+'\' value=\''+prd+'\'/><input type=\'hidden\' name=\'couNouvelArme'+id+'\' value=\''+cou+'\'/><input type=\'hidden\' name=\'intNouvelArme'+id+'\' value=\''+int+'\'/><input type=\'hidden\' name=\'chaNouvelArme'+id+'\' value=\''+cha+'\'/><input type=\'hidden\' name=\'adNouvelArme'+id+'\' value=\''+ad+'\'/><input type=\'hidden\' name=\'foNouvelArme'+id+'\' value=\''+fo+'\'/><input type=\'hidden\' name=\'typeNouvelArme'+id+'\' value=\''+type+'\'/><td>'+nom+'</td><td>'+libelle_type+'</td><td>'+po+'</td><td>'+pi+'</td><td>'+rup+'</td><td>'+at+'</td><td>'+prd+'</td><td>'+cou+'</td><td>'+int+'</td><td>'+cha+'</td><td>'+ad+'</td><td>'+fo+'</td><td><input type=\'button\' value=\'Retirer\' onclick="retirer_arme(\'ligneArme'+id+'\');" /></td></tr>');            
+        $('#armes').append('<tr id=\'ligneArme'+id+'\'><input type=\'hidden\' name=\'nomNouvelArme'+id+'\' value="'+nom+'"/><input type=\'hidden\' name=\'poNouvelArme'+id+'\' value=\''+po+'\'/><input type=\'hidden\' name=\'piNouvelArme'+id+'\' value=\''+pi+'\'/><input type=\'hidden\' name=\'rupNouvelArme'+id+'\' value=\''+rup+'\'/><input type=\'hidden\' name=\'atNouvelArme'+id+'\' value=\''+at+'\'/><input type=\'hidden\' name=\'prdNouvelArme'+id+'\' value=\''+prd+'\'/><input type=\'hidden\' name=\'couNouvelArme'+id+'\' value=\''+cou+'\'/><input type=\'hidden\' name=\'intNouvelArme'+id+'\' value=\''+int+'\'/><input type=\'hidden\' name=\'chaNouvelArme'+id+'\' value=\''+cha+'\'/><input type=\'hidden\' name=\'adNouvelArme'+id+'\' value=\''+ad+'\'/><input type=\'hidden\' name=\'foNouvelArme'+id+'\' value=\''+fo+'\'/><input type=\'hidden\' name=\'typeNouvelArme'+id+'\' value=\''+type+'\'/><td>'+nom+'</td><td>'+libelle_type+'</td><td>'+po+'</td><td>'+pi+'</td><td>'+rup+'</td><td>'+at+'</td><td>'+prd+'</td><td>'+cou+'</td><td>'+int+'</td><td>'+cha+'</td><td>'+ad+'</td><td>'+fo+'</td><td><input type=\'button\' value=\'Retirer\' onclick="retirer_arme(\'ligneArme'+id+'\');" /></td></tr>');            
     }
     
     function ajout_arme(id_arme,nom,type_,po,pi,rup,at,prd,cou,int,cha,ad,fo)
@@ -794,7 +794,7 @@
 
         libelle_type = $("#TYPENouvelProt option:selected").text();
         $('#protections').append('<tr id=\'ligneProt'+id+'\'></tr>');
-            $('#ligneProt'+id).append('<td><input type=\'hidden\' name=\'nomNouvelProt'+id+'\' value=\''+nom+'\'/>'+nom+'</td>');            
+            $('#ligneProt'+id).append('<td><input type=\'hidden\' name=\'nomNouvelProt'+id+'\' value="'+nom+'"/>'+nom+'</td>');            
             $('#ligneProt'+id).append('<td><input type=\'hidden\' name=\'TYPENouvelProt'+id+'\' value=\''+type+'\'/>'+type+'</td>');
             $('#ligneProt'+id).append('<td><input type=\'hidden\' name=\'PONouvelProt'+id+'\' value=\''+po+'\'/>'+po+'</td>');
             $('#ligneProt'+id).append('<td><input type=\'hidden\' name=\'PRNouvelProt'+id+'\' value=\''+pr+'\'/>'+pr+'</td>');
