@@ -2,7 +2,8 @@
     <?php 
         $ids = array();
         $listeAventuriers = array();
-        for($a=1;$a<$_POST["maxID"];$a++)
+
+        for($a=1;$a<=$_POST["maxID"];$a++)
         {
             if(isset($_POST["aventurier".$a]))
             {
@@ -12,6 +13,10 @@
             }
         }
         $tds = array();
+        $tds[0] = array();
+        $tds[1] = array();
+        $tds[2] = array();
+        $tds[3] = array();
         $indextd = 0;
         foreach($listeAventuriers as $aventurier)
         {

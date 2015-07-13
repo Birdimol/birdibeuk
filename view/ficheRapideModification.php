@@ -10,9 +10,9 @@
         <div style='border-bottom:1px #900000 solid;text-align:center;cursor:pointer;' onclick='showDiv("divDonnees");'><h2 style='margin-bottom:0px;'>1: Données de l'aventurier</h2></div>
         <div id='divDonnees'>
         <table class='default'>
-            <tr><td><label for='NOM'>NOM</label></td><td><input type='text' id='NOM' value='<?php echo $aventurier->NOM;?>' name='NOM' /></td></tr>
+            <tr><td><label for='NOM'>NOM</label></td><td><input type='text' id='NOM' value='<?php echo $aventurier->NOM;?>' name='NOM' required /></td></tr>
             <tr><td><label for='SEXE'>SEXE</label></td><td><input type='text' id='SEXE' value='<?php echo $aventurier->SEXE;?>' name='SEXE' /></td></tr>
-            <tr><td><label for='NIVEAU'>NIVEAU</label></td><td><input type='text' id='NIVEAU' value='<?php echo $aventurier->NIVEAU;?>' name='NIVEAU' /></td></tr>
+            <tr><td><label for='NIVEAU'>NIVEAU</label></td><td><input type='text' id='NIVEAU' value='<?php echo $aventurier->NIVEAU;?>' name='NIVEAU' required /></td></tr>
             <tr>
                 <td><label for='ID_ORIGINE'>ORIGINE</label></td>
                 <td>
@@ -49,7 +49,7 @@
                     </select>
                 </td>
             </tr>
-            <tr><td><label for='EV'>EV</label></td><td><input type='text' id='EV' value='<?php echo $aventurier->EV;?>' name='EV' /></td></tr>
+            <tr><td><label for='EV'>EV</label></td><td><input type='text' id='EV' value='<?php echo $aventurier->EV;?>' name='EV' required/></td></tr>
             <tr><td><label for='EA'>EA</label></td><td><input type='text' id='EA' value='<?php echo $aventurier->EA;?>' name='EA' /></td></tr>
             <tr>
                 <td colspan='2'>
@@ -62,17 +62,17 @@
                             <td style='width:20%;'><label for='FO'>FO</label></td>
                         </tr>
                         <tr>
-                            <td style='border-bottom:0px;' ><input type='text' id='COU' style='width:20px;' value='<?php echo $aventurier->COU;?>' name='COU' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='INT' style='width:20px;' value='<?php echo $aventurier->INT;?>' name='INT' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='CHA' style='width:20px;' value='<?php echo $aventurier->CHA;?>' name='CHA' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='AD' style='width:20px;' value='<?php echo $aventurier->AD;?>' name='AD' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='FO' style='width:20px;' value='<?php echo $aventurier->FO;?>' name='FO' /></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='COU' style='width:20px;' value='<?php echo $aventurier->COU;?>' name='COU' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='INT' style='width:20px;' value='<?php echo $aventurier->INT;?>' name='INT' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='CHA' style='width:20px;' value='<?php echo $aventurier->CHA;?>' name='CHA' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='AD' style='width:20px;' value='<?php echo $aventurier->AD;?>' name='AD' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='FO' style='width:20px;' value='<?php echo $aventurier->FO;?>' name='FO' required/></td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr><td><label for='AT'>AT</label></td><td><input type='text' id='AT' value='<?php echo $aventurier->AT;?>' name='AT' /></td></tr>
-            <tr><td><label for='PRD'>PRD</label></td><td><input type='text' id='PRD' value='<?php echo $aventurier->PRD;?>' name='PRD' /></td></tr>
+            <tr><td><label for='AT'>AT</label></td><td><input type='text' id='AT' value='<?php echo $aventurier->AT;?>' name='AT' required/></td></tr>
+            <tr><td><label for='PRD'>PRD</label></td><td><input type='text' id='PRD' value='<?php echo $aventurier->PRD;?>' name='PRD' required/></td></tr>
             <tr><td><label for='RESISTMAG'>RESISTANCE MAGIQUE</label></td><td><input type='text' id='RESISTMAG' value='<?php echo $aventurier->RESISTMAG;?>' name='RESISTMAG' /></td></tr>
             <tr><td><label for='MAGIEPHYS'>MAGIE PHYSIQUE</label></td><td><input type='text' id='MAGIEPHYS' value='<?php echo $aventurier->MAGIEPHYS;?>' name='MAGIEPHYS' /></td></tr>
             <tr><td><label for='MAGIEPSY'>MAGIE PSYCHIQUE</label></td><td><input type='text' id='MAGIEPSY' value='<?php echo $aventurier->MAGIEPSY;?>' name='MAGIEPSY' /></td></tr>
@@ -587,7 +587,7 @@
     
     function showDiv(idDiv)
     {
-        $("#divDonnees").hide();
+        
         $("#divEquipements").hide();
         $("#divArmes").hide();
         $("#divProtections").hide();

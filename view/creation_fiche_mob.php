@@ -18,6 +18,7 @@
     </style>
     <?php 
         $mobs = array();
+        $compte = 0;
         foreach($_POST as $key=>$value)
         {
             if(substr($key,0,3) == "mob")
@@ -31,10 +32,23 @@
                 }
             }
         }
-        
+        ?>
+    <table>
+        <tr>
+        <?php
         foreach($mobs as $mob)
         {
+            echo "<td>";
             $mob->printInfo();
+            echo "</td>";
+            $compte++;
+            if($compte == 2)
+            {
+                echo "</tr><tr>";
+                $compte = 0;             
+            }
         }
     ?>
+        </tr>
+    </table>
 </div>

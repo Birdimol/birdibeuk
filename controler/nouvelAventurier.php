@@ -56,8 +56,8 @@
                 $equipements = Equipement::ListerBase();
                 $protections = Protection::ListerBase();
                 
-                $types_arme = Arme::ListerTypesArme();
-                $types_protection = Protection::ListerTypesProtection();
+                $types_arme = Arme::ListerTypesArmeDeBase();
+                $types_protection = Protection::ListerTypesProtectionDeBase();
                 $types_equipement = Equipement::ListerTypesEquipementDeBase();
                 
                 //Ici on va traiter tous les cas particuliers 

@@ -24,6 +24,10 @@
             }
         }
         $tds = array();
+        $tds[0] = array();
+        $tds[1] = array();
+        $tds[2] = array();
+        $tds[3] = array();
         $indextd = 0;
         foreach($listeAventuriers as $aventurier)
         {

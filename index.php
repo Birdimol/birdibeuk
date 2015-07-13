@@ -37,12 +37,6 @@
 		include(__DIR__."/controler/defaut.php");
 	}
     
-	if(strpos(getenv("DOCUMENT_ROOT"),"wamp") !== false)
-	{}
-	else
-	{
-		Statistique::add();
-	}
 	/*
     if(!Visiteur::Manage())
     {
@@ -52,7 +46,8 @@
             logToDebug("Erreur dans le module Visiteur.");
         }
     }*/
-
+	
+	//Statistique::add();
     
 	include(__DIR__."/view/bas_page.php");
 ?>

@@ -9,9 +9,9 @@
     <div style='border-bottom:1px #900000 solid;text-align:center;cursor:pointer;' onclick='showDiv("divDonnees");'><h2 style='margin-bottom:0px;'>1: Données de l'aventurier</h2></div>
         <div id='divDonnees'>
         <table class='default'>
-            <tr><td><label for='NOM'>NOM</label></td><td><input type='text' id='NOM' value='' name='NOM' /></td></tr>
+            <tr><td><label for='NOM'>NOM</label></td><td><input type='text' id='NOM' value='' name='NOM' required /></td></tr>
             <tr><td><label for='SEXE'>SEXE</label></td><td><input type='text' id='SEXE' value='' name='SEXE' /></td></tr>
-            <tr><td><label for='NIVEAU'>NIVEAU</label></td><td><input type='text' id='NIVEAU' value='0' name='NIVEAU' /></td></tr>
+            <tr><td><label for='NIVEAU'>NIVEAU</label></td><td><input type='text' id='NIVEAU' value='0' name='NIVEAU' required /></td></tr>
             <tr>
                 <td><label for='ID_ORIGINE'>ORIGINE</label></td>
                 <td>
@@ -38,7 +38,7 @@
                     </select>
                 </td>
             </tr>
-            <tr><td><label for='EV'>EV</label></td><td><input type='text' id='EV' value='0' name='EV' /></td></tr>
+            <tr><td><label for='EV'>EV</label></td><td><input type='text' id='EV' value='0' name='EV' required /></td></tr>
             <tr><td><label for='EA'>EA</label></td><td><input type='text' id='EA' value='0' name='EA' /></td></tr>
             <tr>
                 <td colspan='2'>
@@ -51,17 +51,17 @@
                             <td style='width:20%;'><label for='FO'>FO</label></td>
                         </tr>
                         <tr>
-                            <td style='border-bottom:0px;' ><input type='text' id='COU' style='width:20px;' value='0' name='COU' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='INT' style='width:20px;' value='0' name='INT' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='CHA' style='width:20px;' value='0' name='CHA' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='AD' style='width:20px;' value='0' name='AD' /></td>
-                            <td style='border-bottom:0px;' ><input type='text' id='FO' style='width:20px;' value='0' name='FO' /></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='COU' style='width:20px;' value='0' name='COU' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='INT' style='width:20px;' value='0' name='INT' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='CHA' style='width:20px;' value='0' name='CHA' required/></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='AD' style='width:20px;' value='0' name='AD' required /></td>
+                            <td style='border-bottom:0px;' ><input type='text' id='FO' style='width:20px;' value='0' name='FO' required /></td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            <tr><td><label for='AT'>AT</label></td><td><input type='text' id='AT' value='0' name='AT' /></td></tr>
-            <tr><td><label for='PRD'>PRD</label></td><td><input type='text' id='PRD' value='0' name='PRD' /></td></tr>
+            <tr><td><label for='AT'>AT</label></td><td><input type='text' id='AT' value='0' name='AT' required /></td></tr>
+            <tr><td><label for='PRD'>PRD</label></td><td><input type='text' id='PRD' value='0' name='PRD' required /></td></tr>
             <tr><td><label for='RESISTMAG'>RESISTANCE MAGIQUE</label></td><td><input type='text' id='RESISTMAG' value='0' name='RESISTMAG' /></td></tr>
             <tr><td><label for='MAGIEPHYS'>MAGIE PHYSIQUE</label></td><td><input type='text' id='MAGIEPHYS' value='0' name='MAGIEPHYS' /></td></tr>
             <tr><td><label for='MAGIEPSY'>MAGIE PSYCHIQUE</label></td><td><input type='text' id='MAGIEPSY' value='0' name='MAGIEPSY' /></td></tr>
@@ -495,7 +495,7 @@
     
     function showDiv(idDiv)
     {
-        $("#divDonnees").hide();
+        //$("#divDonnees").hide();
         $("#divEquipements").hide();
         $("#divArmes").hide();
         $("#divProtections").hide();
