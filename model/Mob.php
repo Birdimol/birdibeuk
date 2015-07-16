@@ -16,7 +16,10 @@ class Mob
     private $xp;		
     private $note;		
     private $niv_min;		
-    private $niv_max;		
+    private $niv_max;
+    
+    private $po;
+    private $humanoide;
 
     private $loot;
     
@@ -28,7 +31,14 @@ class Mob
         //si ID
         if(!empty($id_mob_envoye) && empty($type_mob_envoye))
         {
-            $this->get_data_from_db($id_mob_envoye);
+            if(is_array($id_mob_envoye))
+            {
+                $this->set_all_from_form($id_mob_envoye);
+            }
+            else
+            {
+                $this->get_data_from_db($id_mob_envoye);
+            }            
         }
         else
         {
@@ -47,6 +57,8 @@ class Mob
             $this->note = $note_envoye;
             $this->niv_min = $niv_min_envoye;
             $this->niv_max = $niv_max_envoye;
+            $this->po = $po;
+            $this->humanoide = $humanoide;
         }
     }
 
@@ -98,16 +110,20 @@ class Mob
     {
         ?>
             <table class='tableMob'> 
-                <tr><td colspan='6'><u><?php echo $this->nom; ?></u></td></tr>
+                <tr><td colspan='6'><u style='font-size:110%;'><?php echo $this->nom; ?></u></td></tr>
                 <tr><td>AT</td><td>PRD</td><td>PR</td><td>COU</td><td>RM</td><td>XP</td></tr>
                 <tr><td><?php echo $this->at; ?></td><td><?php echo $this->prd; ?></td>
                     <td><?php echo $this->pr; ?></td><td><?php echo $this->cou; ?></td>
                     <td><?php echo $this->rm; ?></td><td><?php echo $this->xp; ?></td>
                 </tr>
                 <tr><td colspan='6' style='text-align:left;'>EV : <?php echo $this->ev; ?></td></tr>
-                <tr><td colspan='6' ><i><?php echo $this->note; ?></i></td></tr>
-                <tr><td colspan='6' style='border-top:3px #900000 solid;'>LOOT</td></tr>
                 <?php 
+                if(!empty($this->note))
+                {
+                    ?>
+                    <tr><td colspan='6' ><i><?php echo $this->note; ?></i></td></tr>                
+                    <?php
+                }
                     foreach($this->loot as $arme)
                     {
                         if(is_a($arme, 'Arme'))
@@ -115,14 +131,16 @@ class Mob
                             ?>
                             <tr><td colspan='6'><u><?php echo $arme->NOM; ?></u></td></tr>
                             <tr>
-                                <td><?php echo $arme->NOM; ?></td><td><?php echo $arme->PI; ?></td>
-                                <td><?php echo $arme->RUP; ?></td><td><?php echo $arme->PRIX; ?> PO</td>
-                                <td colspan='2'><?php echo $arme->modif(); ?></td>
+                                <td><?php echo $arme->PI; ?></td>
+                                <td><?php echo $arme->RUP; ?></td>
+                                <td><?php echo $arme->PRIX; ?> PO</td>
+                                <td colspan='3'><?php echo $arme->modif(); ?></td>
                             </tr>
                             <?php 
                         }
                     }
                     ?>
+                <tr><td colspan='6' style='border-top:3px #900000 solid;font-size:80%;'>LOOT</td></tr>
                 <tr>
                     <td colspan='6'>
                     <?php
@@ -147,47 +165,30 @@ class Mob
 
     public function getLoot()
     {
-        $types = explode("-",$this->type_arme);        
-        $db = getConnexionDB();
-        //ARMES
-        foreach($types as $type)
-        {
-			$types2 = explode("/",$type);
-            $tableau = array();
-            $requete = "SELECT * FROM arme where PI = '".$this->pi."' and debase = 1 and ( ";
-			$compte = 0;
-			foreach($types2 as $type2)
-			{
-				if($compte > 0)
-				{
-					$requete .= " OR ";
-				}
-				$requete .= " type = '".$type2."' ";
-				$compte++;
-			} 
-			$requete.= ") and prix < ".($this->niv_max*30)." ";
-
-            $stmt = $db->prepare($requete);
-            $stmt->execute();
-            
-            while ($rs = $stmt->fetch(PDO::FETCH_ASSOC))
+        if($this->humanoide)
+        {        
+            $types = explode("-",$this->type_arme);        
+            $db = getConnexionDB();
+            //ARMES
+            foreach($types as $type)
             {
-
-                $temp = new arme($rs['ID'], $rs['NOM'], $rs['NOM_COURT'], $rs['PRIX'], $rs['PI'], $rs['RUP'], $rs['AT'], $rs['PRD'], $rs['COU'], $rs['INT'], $rs['CHA'], $rs['AD'], $rs['FOR'], $rs['SPECIAL'], $rs['JET'], $rs['qualite'], $rs['type'], $rs['deuxmains'],$rs['debase']);
-                $tableau[] = $temp;
-            }
-            if(count($tableau)>0)
-            {
-                $this->loot[] = $tableau[rand(0,count($tableau)-1)];
-            }
-            else
-            {
-                
+                $types2 = explode("/",$type);
                 $tableau = array();
-                $requete = "SELECT * FROM arme where debase = 1 and type = '".$type."' and prix < ".($this->niv_max*30)." ";
+                $requete = "SELECT * FROM arme where PI = '".$this->pi."' and debase = 1 and ( ";
+                $compte = 0;
+                foreach($types2 as $type2)
+                {
+                    if($compte > 0)
+                    {
+                        $requete .= " OR ";
+                    }
+                    $requete .= " type = '".$type2."' ";
+                    $compte++;
+                } 
+                $requete.= ") and prix < ".($this->niv_max*50)." ";
 
                 $stmt = $db->prepare($requete);
-                $stmt->execute(array("PI"=>$this->pi));
+                $stmt->execute();
                 
                 while ($rs = $stmt->fetch(PDO::FETCH_ASSOC))
                 {
@@ -201,53 +202,115 @@ class Mob
                 else
                 {
                     
+                    $tableau = array();
+                    $requete = "SELECT * FROM arme where debase = 1 and type = '".$type."' and prix < ".($this->niv_max*30)." ";
+
+                    $stmt = $db->prepare($requete);
+                    $stmt->execute(array("PI"=>$this->pi));
+                    
+                    while ($rs = $stmt->fetch(PDO::FETCH_ASSOC))
+                    {
+                        $temp = new arme($rs['ID'], $rs['NOM'], $rs['NOM_COURT'], $rs['PRIX'], $rs['PI'], $rs['RUP'], $rs['AT'], $rs['PRD'], $rs['COU'], $rs['INT'], $rs['CHA'], $rs['AD'], $rs['FOR'], $rs['SPECIAL'], $rs['JET'], $rs['qualite'], $rs['type'], $rs['deuxmains'],$rs['debase']);
+                        $tableau[] = $temp;
+                    }
+                    if(count($tableau)>0)
+                    {
+                        $this->loot[] = $tableau[rand(0,count($tableau)-1)];
+                    }
+                    else
+                    {
+                        
+                    }
                 }
             }
-        }
-        
-        //EQUIPEMENT
-        $nbrTrucTrouve = rand(0,3);
-        $lootPotentiel = array();
-        $equipements = Equipement::ListerBase();
-        $munition = array();
-        foreach($equipements as $equipement)
-        {            
-            if($equipement->PO < $this->niv_max*10)
-            {
-                if($equipement->type == "munition")
+            
+            //EQUIPEMENT
+            $nbrTrucTrouve = rand(0,3);
+            $lootPotentiel = array();
+            $equipements = Equipement::ListerBase();
+            $munition = array();
+            foreach($equipements as $equipement)
+            {            
+                if($equipement->PO < $this->niv_max*10)
                 {
-                    if($equipement->PO < $this->niv_max)
+                    if($equipement->type == "munition")
                     {
-                        $munition[] = $equipement;
+                        if($equipement->PO < $this->niv_max)
+                        {
+                            $munition[] = $equipement;
+                        }
                     }
+                    else
+                    {
+                        if($equipement->type != "grimoire" && $equipement->type != "livre de prodiges")
+                        {
+                            $lootPotentiel[] = $equipement;
+                        }					
+                    }
+                }
+            }
+            
+            if(in_array("arc",$types))
+            {
+                $mun = $munition[rand(0,count($munition)-1)];
+                $mun->nombre = rand(2,8);
+                $this->loot[] = $mun;
+            }
+            
+            $nbreEssai=0;
+            while($nbrTrucTrouve > 0 && $nbreEssai < 10)
+            {
+                $temp = $lootPotentiel[rand(0,count($lootPotentiel)-1)];
+                if(!in_array($temp,$this->loot))
+                {
+                    $this->loot[] = $temp;
+                    $nbrTrucTrouve--;
+                }            
+                $nbreEssai++;
+            }
+            
+            //po
+            $nbrDes = 0;
+            $reste = $this->po;
+            if($index = strpos($reste,"D"))
+            {
+                $nbrDes = substr($reste,0,$index);
+                $reste = substr($reste,$index+1);
+            }
+            
+            $valeur_add = 0;
+            
+            if($reste != "")
+            {            
+                if(substr($reste,0,1) == "-")
+                {
+                    $valeur_add = -1*(substr($reste,1));
+                }
+                else if(substr($reste,0,1) == "+")
+                {
+                    $valeur_add = substr($reste,1);
                 }
                 else
                 {
-                    if($equipement->type != "grimoire" && $equipement->type != "livre de prodiges")
-					{
-						$lootPotentiel[] = $equipement;
-					}					
+                    $valeur_add = $reste;
                 }
             }
-        }
+            
+            $total = $valeur_add;
+            
+            for($a=0;$a<$nbrDes;$a++)
+            {
+                $total += rand(1,6);
+            }
+            
+            if($total < 0)
+            {
+                $total = 0;
+            }
+            
+            $this->loot["po"] = $total;
         
-        if(in_array("arc",$types))
-        {
-            $mun = $munition[rand(0,count($munition)-1)];
-            $mun->nombre = rand(2,8);
-            $this->loot[] = $mun;
         }
-        
-        $nbreEssai=0;
-        while($nbrTrucTrouve > 0 && $nbreEssai < 10)
-        {
-            $this->loot[] = $lootPotentiel[rand(0,count($lootPotentiel)-1)];
-            $nbrTrucTrouve--;
-            $nbreEssai++;
-        }
-        
-        //po
-        $this->loot["po"] = rand(0,$this->niv_max*10);
         
     }
     
@@ -263,7 +326,7 @@ class Mob
         
         while ($rs = $stmt->fetch(PDO::FETCH_ASSOC))
         {
-            $tableau[] = new mob($rs['id_mob'], $rs['type_mob'], $rs['nom'], $rs['at'], $rs['prd'], $rs['ev'], $rs['pr'], $rs['pi'], $rs['type_arme'], $rs['cou'], $rs['rm'], $rs['xp'], $rs['note'], $rs['niv_min'], $rs['niv_max']);
+            $tableau[] = new mob($rs);
         }
         return $tableau;
     }
@@ -271,7 +334,7 @@ class Mob
     public function ajouter()
     {
         $db = getConnexionDB();
-        $requete = "INSERT INTO mob (type_mob, nom, at, prd, ev, pr, pi, type_arme, cou, rm, xp, note, niv_min, niv_max) VALUES ('".$this->type_mob."', '".$this->nom."', ".$this->at.", ".$this->prd.", ".$this->ev.", ".$this->pr.", '".$this->pi."', '".$this->type_arme."', ".$this->cou.", ".$this->rm.", ".$this->xp.", '".$this->note."', ".$this->niv_min.", ".$this->niv_max.")";
+        $requete = "INSERT INTO mob (type_mob, nom, at, prd, ev, pr, pi, type_arme, cou, rm, xp, note, niv_min, niv_max, po , humanoide) VALUES ('".$this->type_mob."', '".$this->nom."', ".$this->at.", ".$this->prd.", ".$this->ev.", ".$this->pr.", '".$this->pi."', '".$this->type_arme."', ".$this->cou.", ".$this->rm.", ".$this->xp.", '".$this->note."', ".$this->niv_min.", ".$this->niv_max.", '".$this->po."', ".$this->humanoide.")";
         
         $stmt = $db->prepare($requete);
         $stmt->execute();
@@ -281,7 +344,7 @@ class Mob
     public function modifier()
     {
         $db = getConnexionDB();
-        $requete = "UPDATE mob SET type_mob = '".$this->type_mob."', nom = '".$this->nom."', at = ".$this->at.", prd = ".$this->prd.", ev = ".$this->ev.", pr = ".$this->pr.", pi = '".$this->pi."', type_arme = '".$this->type_arme."', cou = ".$this->cou.", rm = ".$this->rm.", xp = ".$this->xp.", note = '".$this->note."', niv_min = ".$this->niv_min.", niv_max = ".$this->niv_max." WHERE id_mob = ".$this->id_mob;
+        $requete = "UPDATE mob SET type_mob = '".$this->type_mob."', nom = '".$this->nom."', at = ".$this->at.", prd = ".$this->prd.", ev = ".$this->ev.", pr = ".$this->pr.", pi = '".$this->pi."', type_arme = '".$this->type_arme."', cou = ".$this->cou.", rm = ".$this->rm.", xp = ".$this->xp.", note = '".$this->note."', niv_min = ".$this->niv_min.", niv_max = ".$this->niv_max.", po = '".$this->po."', humanoide = ".$this->humanoide." WHERE id_mob = ".$this->id_mob;
         $stmt = $db->prepare($requete);
         $stmt->execute();
     }
@@ -319,6 +382,8 @@ class Mob
         $this->note = $ligne['note']; 
         $this->niv_min = $ligne['niv_min']; 
         $this->niv_max = $ligne['niv_max'];    
+        $this->po = $ligne['po'];    
+        $this->humanoide = $ligne['humanoide'];    
     }
 
     public function debug()
