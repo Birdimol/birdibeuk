@@ -16,26 +16,14 @@
             text-align:center;
         }
     </style>
-    <?php 
-        $mobs = array();
-        $compte = 0;
-        foreach($_POST as $key=>$value)
-        {
-            if(substr($key,0,3) == "mob")
-            {
-                for($a=0; $a<$value; $a++)
-                {
-                    $id = substr($key,3);
-                    $mob = new Mob($id);
-                    $mob->getLoot();
-                    $mobs[] = $mob;
-                }
-            }
-        }
-        ?>
+    <div style='text-align:center;'>
+        <a target='blank_' href='view/creation_fiche_mob_imprimable.php'>
+            <input type='button' value='version imprimable' style='width:200px;'/>
+        </a>
+    </div>
     <table>
         <tr>
-        <?php
+        <?php        
         foreach($mobs as $mob)
         {
             echo "<td>";
